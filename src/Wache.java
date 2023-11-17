@@ -2,8 +2,8 @@ import java.util.ArrayList;
 
 public class Wache {
     private ArrayList<Fahrzeug> fahrzeughalle = new ArrayList<Fahrzeug>();
-    private ArrayList<pkwFahrer> personal_pkwFahrer = new ArrayList<pkwFahrer>();
-    private ArrayList<lkwFahrer> personal_lkwFahrer = new ArrayList<lkwFahrer>();
+    private ArrayList<pkwFahrer> personalPkwFahrer = new ArrayList<pkwFahrer>();
+    private ArrayList<lkwFahrer> personalLkwFahrer = new ArrayList<lkwFahrer>();
 
     private ArrayList<Feuerwehrmann> krank = new ArrayList<Feuerwehrmann>();
     private ArrayList<Feuerwehrmann> urlaub = new ArrayList<Feuerwehrmann>();
@@ -12,23 +12,23 @@ public class Wache {
     }
     public void addPersonal(Feuerwehrmann feuerwehrmann){
         if (feuerwehrmann instanceof lkwFahrer) {
-            personal_lkwFahrer.add((lkwFahrer) feuerwehrmann);
+            personalLkwFahrer.add((lkwFahrer) feuerwehrmann);
         }
         else {
-            personal_pkwFahrer.add((pkwFahrer) feuerwehrmann);
+            personalPkwFahrer.add((pkwFahrer) feuerwehrmann);
         }
     }
 
     public Feuerwehrmann getFromActiveByPersonalnummer(int personalnummer){
 
-        for (Feuerwehrmann feuerwehrmann : personal_lkwFahrer) {
+        for (Feuerwehrmann feuerwehrmann : personalLkwFahrer) {
             if (feuerwehrmann.getPersonalnummer() == personalnummer) {
                 return (feuerwehrmann);
             }
         }
 
-        for (int i = 0; i < personal_pkwFahrer.size(); i++) {
-            Feuerwehrmann feuerwehrmann = personal_lkwFahrer.get(i);
+        for (int i = 0; i < personalPkwFahrer.size(); i++) {
+            Feuerwehrmann feuerwehrmann = personalLkwFahrer.get(i);
             if (feuerwehrmann.getPersonalnummer() == personalnummer) {
                 return (feuerwehrmann);
             }
@@ -58,10 +58,10 @@ public class Wache {
     } //Kann NULL zurückgeben
     public ArrayList<Integer> getActivePersonalnummern(){
         ArrayList<Integer> personalnummern = new ArrayList<Integer>();
-        for (Feuerwehrmann f : personal_pkwFahrer) {
+        for (Feuerwehrmann f : personalPkwFahrer) {
             personalnummern.add(f.getPersonalnummer());
         }
-        for (Feuerwehrmann f : personal_lkwFahrer) {
+        for (Feuerwehrmann f : personalLkwFahrer) {
             personalnummern.add(f.getPersonalnummer());
         }
 
@@ -83,18 +83,18 @@ public class Wache {
     }
     private void addToActive(Feuerwehrmann f) {
         if (f instanceof lkwFahrer) {
-            personal_lkwFahrer.add((lkwFahrer) f);
+            personalLkwFahrer.add((lkwFahrer) f);
         }
         else {
-            personal_pkwFahrer.add((pkwFahrer) f);
+            personalPkwFahrer.add((pkwFahrer) f);
         }
     }
     private void removeFromActive(Feuerwehrmann f){
         if(f instanceof lkwFahrer){
-            personal_lkwFahrer.remove(f);
+            personalLkwFahrer.remove(f);
         }
         else {
-            personal_pkwFahrer.remove(f);
+            personalPkwFahrer.remove(f);
         }
     }
     private void addToKrank(Feuerwehrmann f){
@@ -133,19 +133,19 @@ public class Wache {
     public ArrayList<Feuerwehrmann> generateBesatzung(int anzahlPersonen, boolean lkw){
         ArrayList<Feuerwehrmann> besatzung = new ArrayList<Feuerwehrmann>();
         if (lkw) {
-        Feuerwehrmann f = personal_lkwFahrer.getFirst();
-        personal_lkwFahrer.remove(f);
+        Feuerwehrmann f = personalLkwFahrer.getFirst();
+        personalLkwFahrer.remove(f);
         besatzung.add(f);
         anzahlPersonen--;
         }
         for (int i = 0; i<anzahlPersonen; i++){
             Feuerwehrmann f;
-            if (!personal_pkwFahrer.isEmpty()) {
-                 f = personal_pkwFahrer.getFirst();
+            if (!personalPkwFahrer.isEmpty()) {
+                 f = personalPkwFahrer.getFirst();
                  removeFromActive(f);
                  besatzung.add(f);
-            } else if (!personal_lkwFahrer.isEmpty()) {
-                f = personal_lkwFahrer.getFirst();
+            } else if (!personalLkwFahrer.isEmpty()) {
+                f = personalLkwFahrer.getFirst();
                 removeFromActive(f);
                 besatzung.add(f);
 

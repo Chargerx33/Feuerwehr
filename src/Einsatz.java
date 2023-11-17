@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Einsatz {
+public abstract class Einsatz {
     protected int needFeuerwehrleute;
     protected int needMtf;
     protected int needElw;

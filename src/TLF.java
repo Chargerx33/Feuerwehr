@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-public class TLF extends Fahrzeug{
+public class TLF/*Tankloeschfahrzeug*/ extends Fahrzeug{
     private int tank;
 
     public TLF(int fahrzeufnummer,Status status) {

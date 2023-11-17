@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class DLK extends Fahrzeug {
+public class DLK/*Drehleiter (mit Korb)*/ extends Fahrzeug {
     private int hoehe;
     public DLK(int fahrzeugnummer,Status status, int hoehe) {
         super(fahrzeugnummer,status,FahrzeugArt.LKW,2);

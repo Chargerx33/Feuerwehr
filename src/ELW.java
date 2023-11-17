@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class ELW extends Fahrzeug {
+public class ELW/*Einsatzleitwagen*/ extends Fahrzeug {
 
     private Dienstgrad dienstgrad;
 

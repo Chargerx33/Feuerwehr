@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class MTF extends Fahrzeug {
+public class MTF/*Mannschaftstransportfahrzeug*/ extends Fahrzeug {
     private int baujahr;
 
     public MTF(int fahrzeugnummer,Status status,int baujahr) {

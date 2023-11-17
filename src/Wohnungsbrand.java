@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Wohnungsbrand extends Einsatz {
+public final class Wohnungsbrand extends Einsatz {
 
 
     public Wohnungsbrand() {
