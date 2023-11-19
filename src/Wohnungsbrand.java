@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public final class Wohnungsbrand extends Einsatz {
 
 
-    public Wohnungsbrand() {
-        super(22, 1, 2, 1, 1);
+    public Wohnungsbrand(int einsatzNummer) {
+        super(einsatzNummer,22, 1, 2, 1, 1);
     }
 }

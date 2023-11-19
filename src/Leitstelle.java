@@ -39,9 +39,40 @@ public class Leitstelle {
         }
     }
 
-    private void createEinsatz(int einsatzNummer /*übergabe von der EinsatzArt*/){
+    public void createEinsatz(int einsatzNummer /*übergabe von der EinsatzArt*/){
         //vlt per Switch Case verfahren, da einsatzarten eigene klassen und konstruktoren haben
-
+        //einsatznummer evtl automatisch generieren
+    }
+    public void beendeEinsatz(int einsatzNummer){
+        //Mithilfe der Einsatznummer den Einsatz beenden
+        //bedenken alle Fahrzeuge und Feuerwehrmänner zurück zu buchen
+    }
+    public void warteFahrzeug(int fahrzeugnummer /*fahrzeugart übergeben, ggf fenerierung der Fahrzeugnummer anpassen*/){
+        //Simples umbuchen vom Fahrzeug
+    }
+    public void reactivateFahrzeug(int fahrzeugnummer /*wie bei warteFahrzeug()*/){
+        /*Simples umbuchen vom Fahrzeug*/
+    }
+    public void erkrankung(int personalnummer){
+        /*Funktion in anderer klasse aufrufen, im gui alle gesunden Personen in Dropdown auflisten*/
+    }
+    public void gesund(int Personalnummer){
+        /*Funktion in anderer klasse aufrufen, im gui alle kranken Personen in Dropdown auflisten*/
+    }
+    public void Urlaub(int personalnummer){
+        /*Funktion in anderer klasse aufrufen, im gui alle gesunden Personen in Dropdown auflisten*/
+    }
+    public void backToWork(int personalnummer){
+        /*Funktion in anderer klasse aufrufen, im gui alle beurlaubten Personen in Dropdown auflisten*/
+    }
+    public void teamToEinsatz(){
+        /*Personen können durch Funktion besorgt werden,Fahrzeuge nach erfordern verbuchen und Personen hinzufügen, im GUI auswahl des einsatzes*/
+        /*Weitergedacht: Mehr PPersonal hinzufügen, aber erst wenn das Programm läuft*/
+    }
+    public void stopProgram(){
+        /*Nicht Erlauben wenn einsätze offen, Weitergedacht: Speichern und beim Start vom Programm nach letztem Save suchen, falls vorhanden*/
+        /*Bei Erster version: Sollen wir einen Force Close Knopf einbauen?  Ja:felix,  Nein: */
+        /*Just For Fun: Ne kurze Animation*/
     }
 }
 
