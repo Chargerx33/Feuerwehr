@@ -38,4 +38,10 @@ public class Leitstelle {
             wache.addFahrzeug(dlk);
         }
     }
+
+    private void createEinsatz(int einsatzNummer /*übergabe von der EinsatzArt*/){
+        //vlt per Switch Case verfahren, da einsatzarten eigene klassen und konstruktoren haben
+
+    }
 }
+
