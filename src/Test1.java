@@ -5,6 +5,13 @@ public class Test1 extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
+    private JTextField textField1;
+    private JTextArea textArea1;
+    private JButton button1;
+    private JCheckBox checkBox1;
+    private JTabbedPane tabbedPane1;
+    private JSlider slider1;
+    private JSlider slider2;
 
     public Test1() {
         setContentPane(contentPane);
