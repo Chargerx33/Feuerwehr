@@ -54,7 +54,15 @@ public class Leitstelle {
         /*Simples umbuchen vom Fahrzeug*/
     }
     public void erkrankung(int personalnummer){
-        /*Funktion in anderer klasse aufrufen, im gui alle gesunden Personen in Dropdown auflisten*/
+        if (personalnummer == 0) {
+            Test1 t = new Test1();
+            erkrankung(t.getData(wache.getActivePersonalnummern()));
+
+        } else if (personalnummer == -1) {
+            System.out.println("Kranksetzen abgebrochen");
+        } else {
+            wache.makeKrank(personalnummer);
+        }
     }
     public void gesund(int Personalnummer){
         /*Funktion in anderer klasse aufrufen, im gui alle kranken Personen in Dropdown auflisten*/

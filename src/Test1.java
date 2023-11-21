@@ -1,12 +1,25 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
-
+import java.util.ArrayList;
+/*
 public class Test1 extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
+    private JComboBox comboBox1;
 
-    public Test1() {
+    private Leitstelle leitstelle;
+    private Wache wache;
+    public int Output;
+    public Test1(Wache wache, Leitstelle leitstelle) {
+        this.leitstelle = leitstelle;
+        this.wache = wache;
+        for (int i: wache.getActivePersonalnummern()) {
+            comboBox1.addItem(i);
+        }
+
+
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -41,13 +54,13 @@ public class Test1 extends JDialog {
 
     private void onOK() {
         // add your code here
-        System.out.println("OK");
+        System.out.println(comboBox1.getSelectedItem());
         dispose();
     }
 
     private void onCancel() {
         // add your code here if necessary
-        System.out.println("The Earth is Flat");
+        Output = Integer.parseInt(comboBox1.getSelectedItem().toString());
         dispose();
     }
 
@@ -56,7 +69,34 @@ public class Test1 extends JDialog {
         dialog.pack();
         dialog.setVisible(true);
         System.exit(0);
-    */
+
     }
 
+
+}
+*/
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JTextField;
+
+public class Test1 {
+    public int getData(ArrayList<Integer> personal) {
+        JComboBox<Integer> text0 = new JComboBox<Integer>();
+        for (int i : personal) {
+            text0.addItem(i);
+        }
+
+        JPanel panel = new JPanel(new GridLayout(0, 2));
+        panel.add(new JLabel("String 0: "));
+        panel.add(text0);
+
+
+        int result = JOptionPane.showConfirmDialog(null, panel, "Data Entry", JOptionPane.OK_CANCEL_OPTION);
+        if (result == JOptionPane.OK_OPTION) {
+            return (int) text0.getSelectedItem();
+        } else if (result == JOptionPane.OK_CANCEL_OPTION) {
+            return -1;
+        }
+        return 0;
+    }
 }
