@@ -39,7 +39,7 @@ public class Leitstelle {
         }
     }
 
-    public void createEinsatz(int einsatzNummer /*übergabe von der EinsatzArt*/){
+    public void createEinsatz(int einsatzNummer, EinsatzArt einsatzArt){
         //vlt per Switch Case verfahren, da einsatzarten eigene klassen und konstruktoren haben
         //einsatznummer evtl automatisch generieren
     }
@@ -47,7 +47,7 @@ public class Leitstelle {
         //Mithilfe der Einsatznummer den Einsatz beenden
         //bedenken alle Fahrzeuge und Feuerwehrmänner zurück zu buchen
     }
-    public void warteFahrzeug(int fahrzeugnummer /*fahrzeugart übergeben, ggf fenerierung der Fahrzeugnummer anpassen*/){
+    public void warteFahrzeug(int fahrzeugnummer /*fahrzeugart übergeben, ggf generierung der Fahrzeugnummer anpassen*/){
         //Simples umbuchen vom Fahrzeug
     }
     public void reactivateFahrzeug(int fahrzeugnummer /*wie bei warteFahrzeug()*/){
