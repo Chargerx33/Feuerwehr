@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.util.ArrayList;
 /*
 public class Test1 extends JDialog {
@@ -75,25 +74,22 @@ public class Test1 extends JDialog {
 
 }
 */
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JTextField;
 
-public class Test1 {
-    public int getData(ArrayList<Integer> personal) {
-        JComboBox<Integer> text0 = new JComboBox<Integer>();
+public class PersonalPopup {
+    public int getData(ArrayList<Integer> personal, String text) {
+        JComboBox<Integer> dropdown = new JComboBox<Integer>();
         for (int i : personal) {
-            text0.addItem(i);
+            dropdown.addItem(i);
         }
 
         JPanel panel = new JPanel(new GridLayout(0, 2));
-        panel.add(new JLabel("String 0: "));
-        panel.add(text0);
+        panel.add(new JLabel("Personalnummer:  "));
+        panel.add(dropdown);
 
 
-        int result = JOptionPane.showConfirmDialog(null, panel, "Data Entry", JOptionPane.OK_CANCEL_OPTION);
+        int result = JOptionPane.showConfirmDialog(null, panel, text, JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
-            return (int) text0.getSelectedItem();
+            return (int) dropdown.getSelectedItem();
         } else if (result == JOptionPane.OK_CANCEL_OPTION) {
             return -1;
         }
