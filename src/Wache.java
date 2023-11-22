@@ -28,7 +28,7 @@ public class Wache {
         }
 
         for (int i = 0; i < personalPkwFahrer.size(); i++) {
-            Feuerwehrmann feuerwehrmann = personalLkwFahrer.get(i);
+            Feuerwehrmann feuerwehrmann = personalPkwFahrer.get(i);
             if (feuerwehrmann.getPersonalnummer() == personalnummer) {
                 return (feuerwehrmann);
             }

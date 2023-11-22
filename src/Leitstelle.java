@@ -54,15 +54,50 @@ public class Leitstelle {
         /*Simples umbuchen vom Fahrzeug*/
     }
     public void erkrankung(int personalnummer){
-        /*Funktion in anderer klasse aufrufen, im gui alle gesunden Personen in Dropdown auflisten*/
+        if (personalnummer == 0) {
+            PersonalPopup t = new PersonalPopup();
+            erkrankung(t.getData(wache.getActivePersonalnummern(),"Wer ist erkrankt?  "));
+
+        } else if (personalnummer == -1) {
+            System.out.println("Kranksetzen abgebrochen");
+        } else {
+            wache.makeKrank(personalnummer);
+        }
     }
-    public void gesund(int Personalnummer){
+    public void gesund(int personalnummer){
+        if (personalnummer == 0) {
+            PersonalPopup t = new PersonalPopup();
+            gesund(t.getData(wache.getKrankPersonalnummern(),"Wer ist erkrankt?  "));
+
+        } else if (personalnummer == -1) {
+            System.out.println("Aktivsetzen abgebrochen");
+        } else {
+            wache.makeGesund(personalnummer);
+        }
         /*Funktion in anderer klasse aufrufen, im gui alle kranken Personen in Dropdown auflisten*/
     }
-    public void Urlaub(int personalnummer){
+    public void urlaub(int personalnummer){
+        if (personalnummer == 0) {
+            PersonalPopup t = new PersonalPopup();
+            urlaub(t.getData(wache.getActivePersonalnummern(),"Wer ist erkrankt?  "));
+
+        } else if (personalnummer == -1) {
+            System.out.println("Beurlaubung abgebrochen");
+        } else {
+            wache.toUrlaub(personalnummer);
+        }
         /*Funktion in anderer klasse aufrufen, im gui alle gesunden Personen in Dropdown auflisten*/
     }
     public void backToWork(int personalnummer){
+        if (personalnummer == 0) {
+            PersonalPopup t = new PersonalPopup();
+            backToWork(t.getData(wache.getUrlaubPersonalnummern(),"Wer ist aus dem Urlaub zurück?  "));
+
+        } else if (personalnummer == -1) {
+            System.out.println("Aktivsetzen abgebrochen");
+        } else {
+            wache.fromUrlaub(personalnummer);
+        }
         /*Funktion in anderer klasse aufrufen, im gui alle beurlaubten Personen in Dropdown auflisten*/
     }
     public void teamToEinsatz(){
