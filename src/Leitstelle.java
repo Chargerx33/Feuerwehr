@@ -39,9 +39,27 @@ public class Leitstelle {
         }
     }
 
-    public void createEinsatz(int einsatzNummer, EinsatzArt einsatzArt){
+    public void createEinsatz(){
+        EinsatzArtPopup eap = new EinsatzArtPopup();
+        EinsatzArt e = eap.getData();
+        Einsatz einsatz = new Einsatz(calculateEinsatzNummer(),e);
+        if (e != EinsatzArt.UNDEFINED || e != null) {
+
+            einsatzs.add(einsatz);
+        }
+        else if (e == EinsatzArt.UNDEFINED){
+            System.out.println("Einsatzaufnahme abgebrochen");
+        }
+        System.out.println(einsatz);
         //vlt per Switch Case verfahren, da einsatzarten eigene klassen und konstruktoren haben
         //einsatznummer evtl automatisch generieren
+    }
+    private int calculateEinsatzNummer(){
+        int highest = 0;
+        for (Einsatz e:einsatzs) {
+            if (e.getEinsatzNummer() > highest) highest=e.getEinsatzNummer();
+        }
+        return (highest+1);
     }
     public void beendeEinsatz(int einsatzNummer){
         //Mithilfe der Einsatznummer den Einsatz beenden
