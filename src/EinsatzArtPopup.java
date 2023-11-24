@@ -17,10 +17,9 @@ public class EinsatzArtPopup {
         int result = JOptionPane.showConfirmDialog(null, panel, "Einsatzart Wählen", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
             return (EinsatzArt) dropdown.getSelectedItem();
-        } else if (result == JOptionPane.OK_CANCEL_OPTION) {
+        } else {
             return EinsatzArt.UNDEFINED;
         }
-        return EinsatzArt.UNDEFINED;
     }
 }
 

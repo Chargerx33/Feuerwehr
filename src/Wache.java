@@ -1,7 +1,9 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Wache {
     private ArrayList<Fahrzeug> fahrzeughalle = new ArrayList<Fahrzeug>();
+    private ArrayList<Fahrzeug> wartungshalle = new ArrayList<Fahrzeug>();
     private ArrayList<pkwFahrer> personalPkwFahrer = new ArrayList<pkwFahrer>();
     private ArrayList<lkwFahrer> personalLkwFahrer = new ArrayList<lkwFahrer>();
 
@@ -56,6 +58,11 @@ public class Wache {
         System.err.println("Feuerwehrmann existiert nicht");
         return null;
     } //Kann NULL zurückgeben
+    public ArrayList<Fahrzeug> getFahrzeugeInFahrzeughalle(){
+        ArrayList<Fahrzeug> fahrzeuge = new ArrayList<Fahrzeug>();
+        fahrzeuge.addAll(fahrzeughalle);
+        return fahrzeuge;
+    }
     public ArrayList<Integer> getActivePersonalnummern(){
         ArrayList<Integer> personalnummern = new ArrayList<Integer>();
         for (Feuerwehrmann f : personalPkwFahrer) {
@@ -64,7 +71,7 @@ public class Wache {
         for (Feuerwehrmann f : personalLkwFahrer) {
             personalnummern.add(f.getPersonalnummer());
         }
-
+        Collections.sort(personalnummern);
         return personalnummern;
     }
     public ArrayList<Integer> getKrankPersonalnummern() {
@@ -72,6 +79,7 @@ public class Wache {
         for (Feuerwehrmann f : krank) {
             personalnummern.add(f.getPersonalnummer());
         }
+        Collections.sort(personalnummern);
         return personalnummern;
     }
     public ArrayList<Integer> getUrlaubPersonalnummern() {
@@ -79,7 +87,28 @@ public class Wache {
         for (Feuerwehrmann f : urlaub) {
             personalnummern.add(f.getPersonalnummer());
         }
+        Collections.sort(personalnummern);
         return personalnummern;
+    }
+    public void driveToFahrzeughalle(int fahrzeugnummer, FahrzeugKategorie fahrzeugKategorie){
+        for (Fahrzeug fahrzeug:wartungshalle) {
+            if (fahrzeug.fahrzeugNummer == fahrzeugnummer) {
+                if (fahrzeug.fahrzeugKategorie == fahrzeugKategorie){
+                    wartungshalle.remove(fahrzeug);
+                    fahrzeughalle.add(fahrzeug);
+                }
+            }
+        }
+    }
+    public void driveToWartungshalle(int fahrzeugnummer, FahrzeugKategorie fahrzeugKategorie) {
+        for (Fahrzeug fahrzeug:fahrzeughalle) {
+            if (fahrzeug.fahrzeugNummer == fahrzeugnummer) {
+                if (fahrzeug.fahrzeugKategorie == fahrzeugKategorie){
+                    fahrzeughalle.remove(fahrzeug);
+                    wartungshalle.add(fahrzeug);
+                }
+            }
+        }
     }
     private void addToActive(Feuerwehrmann f) {
         if (f instanceof lkwFahrer) {
@@ -148,7 +177,6 @@ public class Wache {
                 f = personalLkwFahrer.getFirst();
                 removeFromActive(f);
                 besatzung.add(f);
-
             }
             else {
                 return null;

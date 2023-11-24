@@ -43,11 +43,11 @@ public class Leitstelle {
         EinsatzArtPopup eap = new EinsatzArtPopup();
         EinsatzArt e = eap.getData();
         Einsatz einsatz = new Einsatz(calculateEinsatzNummer(),e);
-        if (e != EinsatzArt.UNDEFINED || e != null) {
+        if (e != EinsatzArt.UNDEFINED) {
 
             einsatzs.add(einsatz);
         }
-        else if (e == EinsatzArt.UNDEFINED){
+        else{
             System.out.println("Einsatzaufnahme abgebrochen");
         }
         System.out.println(einsatz);
@@ -65,11 +65,12 @@ public class Leitstelle {
         //Mithilfe der Einsatznummer den Einsatz beenden
         //bedenken alle Fahrzeuge und Feuerwehrmänner zurück zu buchen
     }
-    public void warteFahrzeug(int fahrzeugnummer /*fahrzeugart übergeben, ggf generierung der Fahrzeugnummer anpassen*/){
-        //Simples umbuchen vom Fahrzeug
+    public void warteFahrzeug(int fahrzeugnummer, FahrzeugKategorie fahrzeugKategorie){
+        //GUIklasse(wache.getFahrzeugeInFahrzeughalle())
+        wache.driveToWartungshalle(fahrzeugnummer,fahrzeugKategorie);
     }
-    public void reactivateFahrzeug(int fahrzeugnummer /*wie bei warteFahrzeug()*/){
-        /*Simples umbuchen vom Fahrzeug*/
+    public void reactivateFahrzeug(int fahrzeugnummer,FahrzeugKategorie fahrzeugKategorie){
+        wache.driveToFahrzeughalle(fahrzeugnummer,fahrzeugKategorie);
     }
     public void erkrankung(int personalnummer){
         if (personalnummer == 0) {

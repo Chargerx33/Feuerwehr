@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class Fahrzeug {
 
     protected int fahrzeugNummer;
+    protected FahrzeugKategorie fahrzeugKategorie;
     protected Status status;
     protected FahrzeugArt typ;
     protected int sitze;
@@ -16,8 +17,9 @@ public class Fahrzeug {
         this.typ = FahrzeugArt.UNDEFINED;
     }
 
-    public Fahrzeug(int fahrzeugNummer, Status status, FahrzeugArt typ, int sitze) {
+    public Fahrzeug(int fahrzeugNummer,FahrzeugKategorie fahrzeugKategorie, Status status, FahrzeugArt typ, int sitze) {
         this.fahrzeugNummer = fahrzeugNummer;
+        this.fahrzeugKategorie = fahrzeugKategorie;
         this.status = status;
         this.typ = typ;
         this.sitze = sitze;
