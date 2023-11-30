@@ -3,11 +3,11 @@ import java.util.ArrayList;
 public class Einsatz {
     private int einsatzNummer;
     private EinsatzArt einsatzArt;
-    private int needFeuerwehrleute;
-    private int needMtf;
-    private int needElw;
-    private int needTlf;
-    private int needDlk;
+    private int benoetigteFeuerwehrleute;
+    private int benoetigteMtf;
+    private int benoetigteElw;
+    private int benoetigteTlf;
+    private int benoetigteDlk;
 
     private ArrayList<Fahrzeug> fahrzeuge = new ArrayList<Fahrzeug>();
 
@@ -35,38 +35,94 @@ public class Einsatz {
 
         }
     }
-    private void setEinsatz(int needFeuerwehrleute, int needElw, int needTlf, int needMtf, int needDlk) {
-        this.needFeuerwehrleute = needFeuerwehrleute;
-        this.needElw = needElw;
-        this.needTlf = needTlf;
-        this.needDlk = needDlk;
-        this.needMtf = needMtf;
+    private void setEinsatz(int benoetigteFeuerwehrleute, int benoetigteElw, int benoetigteTlf, int benoetigteMtf, int benoetigteDlk) {
+        this.benoetigteFeuerwehrleute = benoetigteFeuerwehrleute;
+        this.benoetigteElw = benoetigteElw;
+        this.benoetigteTlf = benoetigteTlf;
+        this.benoetigteDlk = benoetigteDlk;
+        this.benoetigteMtf = benoetigteMtf;
     }
     public int getEinsatzNummer(){
         return einsatzNummer;
     }
 
-    public int getNeedFeuerwehrleute() {
-        return needFeuerwehrleute;
+    public int getBenoetigteFeuerwehrleute() {
+        return benoetigteFeuerwehrleute;
+    }
+    public void bedieneFeuerwehrmann(int bediente){
+        benoetigteFeuerwehrleute-=bediente;
     }
 
-    public int getNeedMtf() {
-        return needMtf;
+    public int getBenoetigteMtf() {
+        return benoetigteMtf;
+    }
+    public void bedieneMTF(int bediente){
+        benoetigteMtf-=bediente;
     }
 
-    public int getNeedElw() {
-        return needElw;
+    public int getBenoetigteElw() {
+        return benoetigteElw;
+    }
+    public void bedieneElw(int bediente){
+        benoetigteElw-=bediente;
     }
 
-    public int getNeedTlf() {
-        return needTlf;
+    public int getBenoetigteTlf() {
+        return benoetigteTlf;
+    }
+    public void bedieneTlf(int bediente){
+        benoetigteTlf-=bediente;
     }
 
-    public int getNeedDlk() {
-        return needDlk;
+    public int getBenoetigteDlk() {
+        return benoetigteDlk;
+    }
+    public void bedieneDlk(int bediente){
+        benoetigteDlk-=bediente;
     }
 
     public EinsatzArt getEinsatzArt() {
         return einsatzArt;
+    }
+
+    public ArrayList<String> getSonderatribute(){
+        ArrayList<String> sonderatribute = new ArrayList<String>();
+        for (Fahrzeug f: fahrzeuge) {
+            if (f instanceof ELW) {
+                switch (((ELW) f).getDienstgrad()){
+                    case A_DIENST -> {
+                        sonderatribute.add("ELW: A-Dienst");
+                        break;
+                    }
+                    case B_DIENST -> {
+                        sonderatribute.add("ELW: B-Dienst");
+                        break;
+                    }
+                    case C_DIENST -> {
+                        sonderatribute.add("ELW: C-Dienst");
+                        break;
+                    }
+                    case D_DIENST -> {
+                        sonderatribute.add("ELW: D-Dienst");
+                        break;
+                    }
+
+                }
+            }
+            else if (f instanceof TLF) {
+                sonderatribute.add("TLF: " + String.valueOf(((TLF) f).getTank()) + " Liter");
+            }
+            else if (f instanceof MTF) {
+                sonderatribute.add("MTF: Baujahr:" + String.valueOf(((MTF) f).getBaujahr()));
+            }
+            else if (f instanceof DLK) {
+                sonderatribute.add("DLK: Anleiterhöhe:" + String.valueOf(((DLK) f).getHoehe()) + " Meter");
+            }
+        }
+        return sonderatribute;
+    }
+
+    public void fahrzeugeEinbeziehen(Fahrzeug fahrzeug){
+        fahrzeuge.add(fahrzeug);
     }
 }

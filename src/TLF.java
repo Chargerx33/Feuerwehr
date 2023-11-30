@@ -6,9 +6,12 @@ public class TLF/*Tankloeschfahrzeug*/ extends Fahrzeug{
 
     public TLF(int fahrzeufnummer,Status status) {
         super(fahrzeufnummer,FahrzeugKategorie.TLF,status, FahrzeugArt.LKW, 4);
-        int[] posstibleTanks = {3000,10000};
+        int[] moeglicheTanks = {3000,10000};
         Random rand = new Random();
-        this.tank = posstibleTanks[rand.nextInt(posstibleTanks.length)];
+        this.tank = moeglicheTanks[rand.nextInt(moeglicheTanks.length)];
+    }
+    public int getTank() {
+        return tank;
     }
 
 }

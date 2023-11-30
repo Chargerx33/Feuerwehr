@@ -8,4 +8,7 @@ public class MTF/*Mannschaftstransportfahrzeug*/ extends Fahrzeug {
         this.baujahr = baujahr;
     }
 
+    public int getBaujahr() {
+        return baujahr;
+    }
 }

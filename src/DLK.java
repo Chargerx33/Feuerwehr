@@ -8,4 +8,7 @@ public class DLK/*Drehleiter (mit Korb)*/ extends Fahrzeug {
 
     }
 
+    public int getHoehe() {
+        return hoehe;
+    }
 }
