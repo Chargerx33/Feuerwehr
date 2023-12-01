@@ -50,7 +50,7 @@ public class Fahrzeug {
     }
 
     public ArrayList<Feuerwehrmann> absitzen() {
-        ArrayList<Feuerwehrmann> besatzung = this.besatzung;
+        ArrayList<Feuerwehrmann> besatzung =new ArrayList<Feuerwehrmann>(this.besatzung);
         besatzung.clear();
         return besatzung;
     }

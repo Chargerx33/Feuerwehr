@@ -125,4 +125,10 @@ public class Einsatz {
     public void fahrzeugeEinbeziehen(Fahrzeug fahrzeug){
         fahrzeuge.add(fahrzeug);
     }
+
+    public ArrayList<Fahrzeug> einsatzEnde(){
+        ArrayList<Fahrzeug> rueckfahrt = new ArrayList<Fahrzeug>(fahrzeuge);
+        fahrzeuge.clear();
+        return rueckfahrt;
+    }
 }

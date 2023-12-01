@@ -3,95 +3,100 @@ import java.util.Collections;
 
 public class Leitstelle {
     private Wache wache = new Wache();
-    private ArrayList<Einsatz> einsatzs = new ArrayList<Einsatz>();
+    private ArrayList<Einsatz> einsaetze = new ArrayList<Einsatz>();
 
 
-    public Leitstelle(){
+    public Leitstelle() {
         genrateFeuerwache();
     }
 
 
     private void genrateFeuerwache() { // Hier werden die gegebenen Daten in die Struktur des Programms eingesetzt
-        for (int i = 1; i<=80; i++) {
+        for (int i = 1; i <= 80; i++) {
             Feuerwehrmann feuerwehrmann;
-            if (i<=10) {
+            if (i <= 10) {
                 feuerwehrmann = new lkwFahrer(i);
-            }
-            else {
+            } else {
                 feuerwehrmann = new pkwFahrer(i);
             }
             wache.addPersonal(feuerwehrmann);
         }
-        for (int i = 1; i<=4; i++ ){
-            Fahrzeug elw = new ELW(i,Status.ZWEI);
+        for (int i = 1; i <= 4; i++) {
+            Fahrzeug elw = new ELW(i, Status.ZWEI);
             wache.addFahrzeug(elw);
         }
-        for (int i = 1; i <= 5; i++){
-            Fahrzeug tlf = new TLF(i,Status.ZWEI);
+        for (int i = 1; i <= 5; i++) {
+            Fahrzeug tlf = new TLF(i, Status.ZWEI);
             wache.addFahrzeug(tlf);
         }
-        for (int i = 1; i<=4; i++){
-            Fahrzeug mtf = new MTF(i,Status.ZWEI,2004);
+        for (int i = 1; i <= 4; i++) {
+            Fahrzeug mtf = new MTF(i, Status.ZWEI, 2004);
             wache.addFahrzeug(mtf);
         }
-        for (int i = 1; i <= 5; i++){
-            Fahrzeug dlk = new DLK(i,Status.ZWEI,23);
+        for (int i = 1; i <= 5; i++) {
+            Fahrzeug dlk = new DLK(i, Status.ZWEI, 23);
             wache.addFahrzeug(dlk);
         }
     }
 
-    public void createEinsatz(){
+    public void createEinsatz() {
         EinsatzArtPopup eap = new EinsatzArtPopup();
         EinsatzArt e = eap.getData();
-        Einsatz einsatz = new Einsatz(calculateEinsatzNummer(),e);
+        Einsatz einsatz = new Einsatz(calculateEinsatzNummer(), e);
         if (e != EinsatzArt.UNDEFINED) {
 
-            einsatzs.add(einsatz);
-        }
-        else{
+            einsaetze.add(einsatz);
+        } else {
             System.out.println("Einsatzaufnahme abgebrochen");
         }
         System.out.println(einsatz);
         //vlt per Switch Case verfahren, da einsatzarten eigene klassen und konstruktoren haben
         //einsatznummer evtl automatisch generieren
     }
-    private int calculateEinsatzNummer(){
+
+    private int calculateEinsatzNummer() {
         int highest = 0;
-        for (Einsatz e:einsatzs) {
-            if (e.getEinsatzNummer() > highest) highest=e.getEinsatzNummer();
+        for (Einsatz e : einsaetze) {
+            if (e.getEinsatzNummer() > highest) highest = e.getEinsatzNummer();
         }
-        return (highest+1);
+        return (highest + 1);
     }
-    private Einsatz selectEinsatz(){
-        ArrayList<Integer> einsatznummern = new  ArrayList<Integer>();
-        for (Einsatz e : einsatzs){
+
+    private Einsatz selectEinsatz() {
+        ArrayList<Integer> einsatznummern = new ArrayList<Integer>();
+        for (Einsatz e : einsaetze) {
             einsatznummern.add(e.getEinsatzNummer());
         }
         Collections.sort(einsatznummern);
         SelectEinsatzPopup selectEinsatzPopup = new SelectEinsatzPopup();
         int selected = selectEinsatzPopup.getData(einsatznummern);
-        for (Einsatz e : einsatzs) {
-            if (e.getEinsatzNummer() == selected){
+        for (Einsatz e : einsaetze) {
+            if (e.getEinsatzNummer() == selected) {
                 return e;
             }
         }
-        return new Einsatz(-1,EinsatzArt.UNDEFINED);
+        return new Einsatz(-1, EinsatzArt.UNDEFINED);
     }
-    public void beendeEinsatz(int einsatzNummer){
-        //Mithilfe der Einsatznummer den Einsatz beenden
-        //bedenken alle Fahrzeuge und Feuerwehrmänner zurück zu buchen
+
+    public void beendeEinsatz() {
+        Einsatz e = selectEinsatz();
+        wache.rueckkehr(e.einsatzEnde());
+        einsaetze.remove(e);
     }
-    public void warteFahrzeug(int fahrzeugnummer, FahrzeugKategorie fahrzeugKategorie){
+
+    public void warteFahrzeug(int fahrzeugnummer, FahrzeugKategorie fahrzeugKategorie) {
         //GUIklasse(wache.getFahrzeugeInFahrzeughalle())
-        wache.driveToWartungshalle(fahrzeugnummer,fahrzeugKategorie);
+        wache.driveToWartungshalle(fahrzeugnummer, fahrzeugKategorie);
     }
-    public void reactivateFahrzeug(int fahrzeugnummer,FahrzeugKategorie fahrzeugKategorie){
-        wache.driveToFahrzeughalle(fahrzeugnummer,fahrzeugKategorie);
+
+    public void reactivateFahrzeug(int fahrzeugnummer, FahrzeugKategorie fahrzeugKategorie) {
+        wache.driveToFahrzeughalle(fahrzeugnummer, fahrzeugKategorie);
     }
-    public void erkrankung(int personalnummer){
+
+    public void erkrankung(int personalnummer) {
         if (personalnummer == 0) {
             PersonalPopup t = new PersonalPopup();
-            erkrankung(t.getData(wache.getActivePersonalnummern(),"Wer ist erkrankt?  "));
+            erkrankung(t.getData(wache.getActivePersonalnummern(), "Wer ist erkrankt?  "));
 
         } else if (personalnummer == -1) {
             System.out.println("Kranksetzen abgebrochen");
@@ -99,10 +104,11 @@ public class Leitstelle {
             wache.makeKrank(personalnummer);
         }
     }
-    public void gesund(int personalnummer){
+
+    public void gesund(int personalnummer) {
         if (personalnummer == 0) {
             PersonalPopup t = new PersonalPopup();
-            gesund(t.getData(wache.getKrankPersonalnummern(),"Wer ist gesund?  "));
+            gesund(t.getData(wache.getKrankPersonalnummern(), "Wer ist gesund?  "));
 
         } else if (personalnummer == -1) {
             System.out.println("Aktivsetzen abgebrochen");
@@ -111,10 +117,11 @@ public class Leitstelle {
         }
         /*Funktion in anderer klasse aufrufen, im gui alle kranken Personen in Dropdown auflisten*/
     }
-    public void urlaub(int personalnummer){
+
+    public void urlaub(int personalnummer) {
         if (personalnummer == 0) {
             PersonalPopup t = new PersonalPopup();
-            urlaub(t.getData(wache.getActivePersonalnummern(),"Wer geht in den Urlaub?  "));
+            urlaub(t.getData(wache.getActivePersonalnummern(), "Wer geht in den Urlaub?  "));
 
         } else if (personalnummer == -1) {
             System.out.println("Beurlaubung abgebrochen");
@@ -123,10 +130,11 @@ public class Leitstelle {
         }
         /*Funktion in anderer klasse aufrufen, im gui alle gesunden Personen in Dropdown auflisten*/
     }
-    public void backToWork(int personalnummer){
+
+    public void backToWork(int personalnummer) {
         if (personalnummer == 0) {
             PersonalPopup t = new PersonalPopup();
-            backToWork(t.getData(wache.getUrlaubPersonalnummern(),"Wer ist aus dem Urlaub zurück?  "));
+            backToWork(t.getData(wache.getUrlaubPersonalnummern(), "Wer ist aus dem Urlaub zurück?  "));
 
         } else if (personalnummer == -1) {
             System.out.println("Aktivsetzen abgebrochen");
@@ -135,29 +143,30 @@ public class Leitstelle {
         }
         /*Funktion in anderer klasse aufrufen, im gui alle beurlaubten Personen in Dropdown auflisten*/
     }
-    public void teamZuEinsatz(){
+
+    public void teamZuEinsatz() {
         /*Personen können durch Funktion besorgt werden,Fahrzeuge nach erfordern verbuchen und Personen hinzufügen, im GUI auswahl des einsatzes*/
         /*Weitergedacht: Mehr PPersonal hinzufügen, aber erst wenn das Programm läuft*/
         Einsatz e = selectEinsatz();
-        if (e.getEinsatzNummer() != -1){
+        if (e.getEinsatzNummer() != -1) {
             ArrayList<lkwFahrer> reservierteMtfFahrer = new ArrayList<lkwFahrer>();
-            if (e.getBenoetigteMtf()>0) {
-                for (int i = 0; i<e.getBenoetigteMtf();i++){
-                    reservierteMtfFahrer.add((lkwFahrer) wache.generateBesatzung(1,true).getFirst());
+            if (e.getBenoetigteMtf() > 0) {
+                for (int i = 0; i < e.getBenoetigteMtf(); i++) {
+                    reservierteMtfFahrer.add((lkwFahrer) wache.generateBesatzung(1, true).getFirst());
                     e.bedieneFeuerwehrmann(1);
                 }
             }
-            for (int i = 0; i < e.getBenoetigteElw();){
+            for (int i = 0; i < e.getBenoetigteElw(); ) {
                 ELW fahrzeug = (ELW) wache.fahrzeugZuEinsatz(FahrzeugKategorie.ELW);
                 int benoetigteFeuerwehrleute = fahrzeug.getSitze();
-                if (fahrzeug.getSitze()>e.getBenoetigteFeuerwehrleute()){
+                if (fahrzeug.getSitze() > e.getBenoetigteFeuerwehrleute()) {
                     benoetigteFeuerwehrleute = e.getBenoetigteFeuerwehrleute();
                 }
-                ArrayList<Feuerwehrmann> besatzung = wache.generateBesatzung(benoetigteFeuerwehrleute,fahrzeug.getTyp() == FahrzeugArt.LKW);
+                ArrayList<Feuerwehrmann> besatzung = wache.generateBesatzung(benoetigteFeuerwehrleute, fahrzeug.getTyp() == FahrzeugArt.LKW);
                 fahrzeug.aufsitzen(besatzung);
                 Dienstgrad dienstgrad = Dienstgrad.D_DIENST;
-                for (Feuerwehrmann f:besatzung) {
-                    if(f.getDienstgrad().istHoeherAls(dienstgrad)){
+                for (Feuerwehrmann f : besatzung) {
+                    if (f.getDienstgrad().istHoeherAls(dienstgrad)) {
                         dienstgrad = f.getDienstgrad();
                     }
                 }
@@ -166,50 +175,55 @@ public class Leitstelle {
                 e.bedieneFeuerwehrmann(besatzung.size());
                 e.fahrzeugeEinbeziehen(fahrzeug);
             }
-            for (int i = 0; i < e.getBenoetigteTlf();){
+            for (int i = 0; i < e.getBenoetigteTlf(); ) {
                 Fahrzeug fahrzeug = wache.fahrzeugZuEinsatz(FahrzeugKategorie.TLF);
                 int benoetigteFeuerwehrleute = fahrzeug.getSitze();
-                if (fahrzeug.getSitze()>e.getBenoetigteFeuerwehrleute()){
+                if (fahrzeug.getSitze() > e.getBenoetigteFeuerwehrleute()) {
                     benoetigteFeuerwehrleute = e.getBenoetigteFeuerwehrleute();
                 }
-                ArrayList<Feuerwehrmann> besatzung = wache.generateBesatzung(benoetigteFeuerwehrleute,fahrzeug.getTyp() == FahrzeugArt.LKW);
+                ArrayList<Feuerwehrmann> besatzung = wache.generateBesatzung(benoetigteFeuerwehrleute, fahrzeug.getTyp() == FahrzeugArt.LKW);
                 fahrzeug.aufsitzen(besatzung);
                 e.bedieneTlf(1);
                 e.bedieneFeuerwehrmann(besatzung.size());
                 e.fahrzeugeEinbeziehen(fahrzeug);
             }
-            for (int i = 0; i < e.getBenoetigteDlk();){
+            for (int i = 0; i < e.getBenoetigteDlk(); ) {
                 Fahrzeug fahrzeug = wache.fahrzeugZuEinsatz(FahrzeugKategorie.DLK);
                 int benoetigteFeuerwehrleute = fahrzeug.getSitze();
-                if (fahrzeug.getSitze()>e.getBenoetigteFeuerwehrleute()){
+                if (fahrzeug.getSitze() > e.getBenoetigteFeuerwehrleute()) {
                     benoetigteFeuerwehrleute = e.getBenoetigteFeuerwehrleute();
                 }
-                ArrayList<Feuerwehrmann> besatzung = wache.generateBesatzung(benoetigteFeuerwehrleute,fahrzeug.getTyp() == FahrzeugArt.LKW);
+                ArrayList<Feuerwehrmann> besatzung = wache.generateBesatzung(benoetigteFeuerwehrleute, fahrzeug.getTyp() == FahrzeugArt.LKW);
                 fahrzeug.aufsitzen(besatzung);
                 e.bedieneDlk(1);
                 e.bedieneFeuerwehrmann(besatzung.size());
                 e.fahrzeugeEinbeziehen(fahrzeug);
             }
-            for (int i = 0; i < e.getBenoetigteMtf();){
+            for (int i = 0; i < e.getBenoetigteMtf(); ) {
                 Fahrzeug fahrzeug = wache.fahrzeugZuEinsatz(FahrzeugKategorie.MTF);
-                int benoetigteFeuerwehrleute = fahrzeug.getSitze()-1;
-                if (fahrzeug.getSitze()-1>e.getBenoetigteFeuerwehrleute()){
-                    benoetigteFeuerwehrleute = e.getBenoetigteFeuerwehrleute();
+                int benoetigteFeuerwehrleute = fahrzeug.getSitze() - 1;
+                if (fahrzeug.getSitze() - 1 > e.getBenoetigteFeuerwehrleute()) {
+                    benoetigteFeuerwehrleute = e.getBenoetigteFeuerwehrleute()-1;
                 }
-                ArrayList<Feuerwehrmann> besatzung = wache.generateBesatzung(benoetigteFeuerwehrleute,false);
+                ArrayList<Feuerwehrmann> besatzung = new ArrayList<Feuerwehrmann>();
                 besatzung.add(reservierteMtfFahrer.getFirst());
                 reservierteMtfFahrer.removeFirst();
+                if (benoetigteFeuerwehrleute != 0) {
+                    besatzung.addAll(wache.generateBesatzung(benoetigteFeuerwehrleute, false));
+                }
                 fahrzeug.aufsitzen(besatzung);
                 e.bedieneMTF(1);
                 e.bedieneFeuerwehrmann(besatzung.size());
                 e.fahrzeugeEinbeziehen(fahrzeug);
+
 
             }
 
         }
 
     }
-    public void stopProgram(){
+
+    public void stopProgram() {
         /*Nicht Erlauben wenn einsätze offen, Weitergedacht: Speichern und beim Start vom Programm nach letztem Save suchen, falls vorhanden*/
         /*Bei Erster version: Sollen wir einen Force Close Knopf einbauen?  Ja:felix,  Nein: */
         /*Just For Fun: Ne kurze Animation*/

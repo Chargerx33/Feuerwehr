@@ -14,6 +14,7 @@ public class MainWindow extends JDialog {
     private JButton einsatzBeendenButton;
     private JButton einsatzAnfahrenButton;
     private JButton programmBeendenButton;
+    private JButton einsatzInfoButton;
 
     public MainWindow(Leitstelle leitstelle) {
         this.leitstelle = leitstelle;
@@ -48,7 +49,7 @@ public class MainWindow extends JDialog {
         });
         fahrzeugVerfuegbarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                onFahrzeugVerfuegbar();
             }
         });
         neuerEinsatzButton.addActionListener(new ActionListener() {
@@ -59,6 +60,11 @@ public class MainWindow extends JDialog {
         einsatzAnfahrenButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onEinsatzAnfahren();
+            }
+        });
+        einsatzInfoButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                onEinsatzInfo();
             }
         });
         einsatzBeendenButton.addActionListener(new ActionListener() {
@@ -87,7 +93,11 @@ public class MainWindow extends JDialog {
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
 
+        einsatzInfoButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
 
+            }
+        });
     }
 
     private void onUrlaubsmeldung() {
@@ -102,6 +112,9 @@ public class MainWindow extends JDialog {
     private void onFahrzeugWartung() {
         //Noch machen!!!
     }
+    private void onFahrzeugVerfuegbar() {
+        //Noch machen!!!
+    }
     private void onErkrankung(){
         leitstelle.erkrankung(0);
     }
@@ -114,18 +127,18 @@ public class MainWindow extends JDialog {
     private void onEinsatzAnfahren(){
         leitstelle.teamZuEinsatz();
     }
+    private void onEinsatzInfo(){
+        JFrame frame = new JFrame();
+        JOptionPane.showMessageDialog(frame,
+                "Eggs are not supposed to be green.",
+                "Info zum ausgewählten Einsatz",
+                JOptionPane.PLAIN_MESSAGE);
+    }
     private void onEinsatzEnde(){
-
+        leitstelle.beendeEinsatz();
     }
     private void onExit(){
         dispose();
     }
 
-    /*public static void main(String[] args) {
-        MainWindow dialog = new MainWindow();
-        dialog.pack();
-        dialog.setVisible(true);
-        System.exit(0);
-    }
-     */
 }
