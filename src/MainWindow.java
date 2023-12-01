@@ -128,9 +128,10 @@ public class MainWindow extends JDialog {
         leitstelle.teamZuEinsatz();
     }
     private void onEinsatzInfo(){
+        String text = leitstelle.einsatzInfo();
         JFrame frame = new JFrame();
         JOptionPane.showMessageDialog(frame,
-                "Eggs are not supposed to be green.",
+                text,
                 "Info zum ausgewählten Einsatz",
                 JOptionPane.PLAIN_MESSAGE);
     }

@@ -85,41 +85,44 @@ public class Einsatz {
         return einsatzArt;
     }
 
-    public ArrayList<String> getSonderatribute(){
-        ArrayList<String> sonderatribute = new ArrayList<String>();
+    public String getSonderatribute(){
+        StringBuilder sonderatribute = new StringBuilder();
+        int i = 1;
         for (Fahrzeug f: fahrzeuge) {
+            sonderatribute.append(String.valueOf(i)+": ");
+            i++;
             if (f instanceof ELW) {
                 switch (((ELW) f).getDienstgrad()){
                     case A_DIENST -> {
-                        sonderatribute.add("ELW: A-Dienst");
+                        sonderatribute.append("ELW: A-Dienst\n");
                         break;
                     }
                     case B_DIENST -> {
-                        sonderatribute.add("ELW: B-Dienst");
+                        sonderatribute.append("ELW: B-Dienst\n");
                         break;
                     }
                     case C_DIENST -> {
-                        sonderatribute.add("ELW: C-Dienst");
+                        sonderatribute.append("ELW: C-Dienst\n");
                         break;
                     }
                     case D_DIENST -> {
-                        sonderatribute.add("ELW: D-Dienst");
+                        sonderatribute.append("ELW: D-Dienst\n");
                         break;
                     }
 
                 }
             }
             else if (f instanceof TLF) {
-                sonderatribute.add("TLF: " + String.valueOf(((TLF) f).getTank()) + " Liter");
+                sonderatribute.append("TLF: " + String.valueOf(((TLF) f).getTank()) + " Liter\n");
             }
             else if (f instanceof MTF) {
-                sonderatribute.add("MTF: Baujahr:" + String.valueOf(((MTF) f).getBaujahr()));
+                sonderatribute.append("MTF: Baujahr: " + String.valueOf(((MTF) f).getBaujahr()) + "\n");
             }
             else if (f instanceof DLK) {
-                sonderatribute.add("DLK: Anleiterhöhe:" + String.valueOf(((DLK) f).getHoehe()) + " Meter");
+                sonderatribute.append("DLK: Anleiterhöhe: " + String.valueOf(((DLK) f).getHoehe()) + " Meter\n");
             }
         }
-        return sonderatribute;
+        return sonderatribute.toString();
     }
 
     public void fahrzeugeEinbeziehen(Fahrzeug fahrzeug){

@@ -77,6 +77,10 @@ public class Leitstelle {
         }
         return new Einsatz(-1, EinsatzArt.UNDEFINED);
     }
+    public String einsatzInfo(){
+        Einsatz einsatz = selectEinsatz();
+        return einsatz.getSonderatribute();
+    }
 
     public void beendeEinsatz() {
         Einsatz e = selectEinsatz();
