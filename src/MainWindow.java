@@ -15,12 +15,15 @@ public class MainWindow extends JDialog {
     private JButton einsatzAnfahrenButton;
     private JButton programmBeendenButton;
     private JButton einsatzInfoButton;
+    private JTabbedPane tabbedPane1;
 
     public MainWindow(Leitstelle leitstelle) {
         this.leitstelle = leitstelle;
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(urlaubsmeldungButton);
+
+
 
         urlaubsmeldungButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -141,5 +144,4 @@ public class MainWindow extends JDialog {
     private void onExit(){
         dispose();
     }
-
 }
