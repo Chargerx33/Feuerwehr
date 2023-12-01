@@ -50,9 +50,10 @@ public class Fahrzeug {
     }
 
     public ArrayList<Feuerwehrmann> absitzen() {
-        ArrayList<Feuerwehrmann> besatzung =new ArrayList<Feuerwehrmann>(this.besatzung);
+        ArrayList<Feuerwehrmann> rueckfahrendeBesatzung = new ArrayList<Feuerwehrmann>();
+        rueckfahrendeBesatzung.addAll(besatzung);
         besatzung.clear();
-        return besatzung;
+        return rueckfahrendeBesatzung;
     }
 
 }

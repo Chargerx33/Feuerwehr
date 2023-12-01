@@ -24,7 +24,7 @@ public class Einsatz {
                 setEinsatz(16,1,1,1,0);
                 break;
             }
-            case NATURKATHASTROPHE -> {
+            case NATURKATASTROPHE -> {
                 setEinsatz(55,3,3,3,2);
                 break;
             }

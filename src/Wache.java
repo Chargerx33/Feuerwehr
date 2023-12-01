@@ -241,9 +241,9 @@ public class Wache {
     public void rueckkehr(ArrayList<Fahrzeug> angekommeneFahrzeuge){
         for (Fahrzeug fahrzeug:angekommeneFahrzeuge) {
             ArrayList<Feuerwehrmann> besatzung = fahrzeug.absitzen();
-            for (Feuerwehrmann f:besatzung) {
-                addToActive(f);
-                besatzung.remove(f);
+            while (besatzung.size()>0){
+                addToActive(besatzung.getFirst());
+                besatzung.remove(besatzung.getFirst());
             }
         }
         fahrzeughalle.addAll(angekommeneFahrzeuge);
