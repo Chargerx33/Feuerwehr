@@ -16,6 +16,7 @@ public class MainWindow extends JDialog {
     private JButton programmBeendenButton;
     private JButton einsatzInfoButton;
     private JTabbedPane tabbedPane1;
+    private JLabel label;
 
     public MainWindow(Leitstelle leitstelle) {
         this.leitstelle = leitstelle;
@@ -101,34 +102,47 @@ public class MainWindow extends JDialog {
 
             }
         });
+        updateStatusDerWache();
+    }
+    private void updateStatusDerWache() {
+        label.setText("<html>" + leitstelle.statusDerWache().replaceAll("\n", "<br/>") + "</html");
     }
 
     private void onUrlaubsmeldung() {
         leitstelle.urlaub(0);
-
+        updateStatusDerWache();
     }
 
     private void onUrlaubsrueckkehr() {
-        leitstelle.backToWork(0);
-
+        leitstelle.zureuckVomUrlaub(0);
+        updateStatusDerWache();
     }
     private void onFahrzeugWartung() {
-        //Noch machen!!!
+        leitstelle.warteFahrzeug();
+        updateStatusDerWache();
     }
     private void onFahrzeugVerfuegbar() {
-        //Noch machen!!!
+        leitstelle.reaktiviereFahrzeug();
+        updateStatusDerWache();
     }
     private void onErkrankung(){
         leitstelle.erkrankung(0);
+        updateStatusDerWache();
     }
     private void onGesund(){
         leitstelle.gesund(0);
+        updateStatusDerWache();
     }
     private void onNeuerEinsatz(){
-        leitstelle.createEinsatz();
+        leitstelle.neuerEinsatz();
     }
     private void onEinsatzAnfahren(){
-        leitstelle.teamZuEinsatz();
+        boolean angefahren =  leitstelle.teamZuEinsatz();
+        if (!angefahren) {
+
+            JOptionPane.showMessageDialog(null,"Nicht genügend Einsatzkräfte/Fahrzeuge","Anfahren nicht möglich!", JOptionPane.ERROR_MESSAGE);
+        }
+        updateStatusDerWache();
     }
     private void onEinsatzInfo(){
         String text = leitstelle.einsatzInfo();
@@ -140,6 +154,7 @@ public class MainWindow extends JDialog {
     }
     private void onEinsatzEnde(){
         leitstelle.beendeEinsatz();
+        updateStatusDerWache();
     }
     private void onExit(){
         dispose();

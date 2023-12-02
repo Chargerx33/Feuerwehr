@@ -1,11 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
-public class EinsatzArtPopup {
-    public EinsatzArt getData() {
-        JComboBox<EinsatzArt> dropdown = new JComboBox<EinsatzArt>();
-        for (EinsatzArt e : EinsatzArt.values()) {
+public class EinsatzartPopup {
+    public Einsatzart getData() {
+        JComboBox<Einsatzart> dropdown = new JComboBox<Einsatzart>();
+        for (Einsatzart e : Einsatzart.values()) {
             dropdown.addItem(e);
         }
 
@@ -16,9 +15,9 @@ public class EinsatzArtPopup {
 
         int result = JOptionPane.showConfirmDialog(null, panel, "Einsatzart Wählen", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
-            return (EinsatzArt) dropdown.getSelectedItem();
+            return (Einsatzart) dropdown.getSelectedItem();
         } else {
-            return EinsatzArt.UNDEFINED;
+            return Einsatzart.UNDEFINED;
         }
     }
 }

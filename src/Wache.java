@@ -4,8 +4,8 @@ import java.util.Collections;
 public class Wache {
     private ArrayList<Fahrzeug> fahrzeughalle = new ArrayList<Fahrzeug>();
     private ArrayList<Fahrzeug> wartungshalle = new ArrayList<Fahrzeug>();
-    private ArrayList<pkwFahrer> personalPkwFahrer = new ArrayList<pkwFahrer>();
-    private ArrayList<lkwFahrer> personalLkwFahrer = new ArrayList<lkwFahrer>();
+    private ArrayList<PkwFahrer> personalPkwFahrer = new ArrayList<PkwFahrer>();
+    private ArrayList<LkwFahrer> personalLkwFahrer = new ArrayList<LkwFahrer>();
 
     private ArrayList<Feuerwehrmann> krank = new ArrayList<Feuerwehrmann>();
     private ArrayList<Feuerwehrmann> urlaub = new ArrayList<Feuerwehrmann>();
@@ -15,12 +15,83 @@ public class Wache {
     }
 
     public void addPersonal(Feuerwehrmann feuerwehrmann) {
-        if (feuerwehrmann instanceof lkwFahrer) {
-            personalLkwFahrer.add((lkwFahrer) feuerwehrmann);
+        if (feuerwehrmann instanceof LkwFahrer) {
+            personalLkwFahrer.add((LkwFahrer) feuerwehrmann);
         } else {
-            personalPkwFahrer.add((pkwFahrer) feuerwehrmann);
+            personalPkwFahrer.add((PkwFahrer) feuerwehrmann);
         }
     }
+    public String statusDerWache(){
+        StringBuilder status = new StringBuilder();
+        status.append("Verfügbare LKW fahrer: " + personalLkwFahrer.size() + "\n");
+        status.append("Verfügbare Feurerwehrmänner: " + (personalPkwFahrer.size() + personalLkwFahrer.size()) + "(Inkl. LKW fahrer)\n" );
+        int[] verfuegbareFahrzeuge = verfuegbareFahrzeuge();
+        status.append("Verfügbare ELW: " + verfuegbareFahrzeuge[0] + "\n");
+        status.append("Verfügbaer TLF: " + verfuegbareFahrzeuge[1] + "\n");
+        status.append("Verfügbare DLK: " + verfuegbareFahrzeuge[2] + "\n");
+        status.append("Verfügbare MTF: " + verfuegbareFahrzeuge[3] + "\n");
+        status.append("Noch mögliche Einsätze: ");
+        for(Einsatzart einsatzArt: moeglicheEinsatzArten()){
+            status.append(einsatzArt.toString() + ", ");
+        }
+
+        System.out.println(status.toString());
+        System.out.println(status);
+        return status.toString();
+    }
+    public int[] verfuegbareFahrzeuge() {
+        int[]verfuegbar = new int[4];
+        verfuegbar[0] = verfuegbar[1] = verfuegbar[2] = verfuegbar[3] = 0;
+        for (Fahrzeug fahrzeug: fahrzeughalle) {
+            switch (fahrzeug.getFahrzeugKategorie()){
+                case ELW -> {
+                    verfuegbar[0]++;
+                }
+                case TLF -> {
+                    verfuegbar[1]++;
+                }
+                case DLK -> {
+                    verfuegbar[2]++;
+                }
+                case MTF -> {
+                    verfuegbar[3]++;
+                }
+            }
+        }
+        return verfuegbar;
+    }
+    public ArrayList<Einsatzart> moeglicheEinsatzArten(){
+        ArrayList<Einsatzart> arten = new ArrayList<Einsatzart>();
+        int[] verfuegbareFahrzeuge = verfuegbareFahrzeuge();
+        arten.add(Einsatzart.WOHNUNGSBRAND);
+        arten.add(Einsatzart.VERKEHRSUNFALL);
+        arten.add(Einsatzart.NATURKATASTROPHE);
+        arten.add(Einsatzart.INDUSTRIEUNFALL);
+        ArrayList<Einsatzart> moeglich = (ArrayList<Einsatzart>) arten.clone();
+
+        for (Einsatzart einsatzArt: arten){
+            Einsatz einsatz = new Einsatz(-1,einsatzArt);
+            int benoetigteLkwFahrer = einsatz.getBenoetigteMTF()+einsatz.getBenoetigteDLK()+einsatz.getBenoetigteTLF();
+            if (!(
+                    //Prüfung, ob genug Fahrzeuge vorhanden sind
+                    (
+                        einsatz.getBenoetigteELW()<=verfuegbareFahrzeuge[0] &&
+                        einsatz.getBenoetigteTLF()<=verfuegbareFahrzeuge[1] &&
+                        einsatz.getBenoetigteTLF()<=verfuegbareFahrzeuge[2] &&
+                        einsatz.getBenoetigteMTF()<=verfuegbareFahrzeuge[3]
+                    ) &&
+                    //Prüfung, ob genug LKW fahrer vorhanden sind
+                    (benoetigteLkwFahrer<=personalLkwFahrer.size()) &&
+                    //Prüfung, ob genug besatzung vorhanden
+                    (einsatz.getBenoetigteFeuerwehrleute()<(personalPkwFahrer.size()+personalLkwFahrer.size()))
+            )
+            ){
+                moeglich.remove(einsatzArt);
+            }
+        }
+        return moeglich;
+    }
+
 
     public Feuerwehrmann getFromActiveByPersonalnummer(int personalnummer) {
 
@@ -67,6 +138,11 @@ public class Wache {
         fahrzeuge.addAll(fahrzeughalle);
         return fahrzeuge;
     }
+    public ArrayList<Fahrzeug> getFahrzeugeInWartungshalle() {
+        ArrayList<Fahrzeug> fahrzeuge = new ArrayList<Fahrzeug>();
+        fahrzeuge.addAll(wartungshalle);
+        return fahrzeuge;
+    }
 
     public ArrayList<Integer> getActivePersonalnummern() {
         ArrayList<Integer> personalnummern = new ArrayList<Integer>();
@@ -98,38 +174,37 @@ public class Wache {
         return personalnummern;
     }
 
-    public void driveToFahrzeughalle(int fahrzeugnummer, FahrzeugKategorie fahrzeugKategorie) {
-        for (Fahrzeug fahrzeug : wartungshalle) {
-            if (fahrzeug.fahrzeugNummer == fahrzeugnummer) {
-                if (fahrzeug.fahrzeugKategorie == fahrzeugKategorie) {
-                    wartungshalle.remove(fahrzeug);
-                    fahrzeughalle.add(fahrzeug);
-                }
-            }
-        }
+    public void fahreInFahrzeughalle(Fahrzeug fahrzeug) {
+        wartungshalle.remove(fahrzeug);
+        fahrzeughalle.add(fahrzeug);
+        sortiereHallen();
     }
 
-    public void driveToWartungshalle(int fahrzeugnummer, FahrzeugKategorie fahrzeugKategorie) {
-        for (Fahrzeug fahrzeug : fahrzeughalle) {
-            if (fahrzeug.fahrzeugNummer == fahrzeugnummer) {
-                if (fahrzeug.fahrzeugKategorie == fahrzeugKategorie) {
-                    fahrzeughalle.remove(fahrzeug);
-                    wartungshalle.add(fahrzeug);
-                }
-            }
-        }
+    public void fahreInWartungshalle(Fahrzeug fahrzeug) {
+        fahrzeughalle.remove(fahrzeug);
+        wartungshalle.add(fahrzeug);
+        sortiereHallen();
     }
+    private void sortiereHallen(){
+        //https://stackoverflow.com/questions/2784514/sort-arraylist-of-custom-objects-by-property
+        //Hab das hier her, keine ahnung wieso das funktioniert, aber es funktioniert
+        fahrzeughalle.sort((o1, o2) -> o1.getFahrzeugnummer().compareTo(o2.getFahrzeugnummer()));
+        fahrzeughalle.sort(((o1, o2) -> o1.getFahrzeugKategorie().compareTo(o2.getFahrzeugKategorie())));
+        wartungshalle.sort((o1, o2) -> o1.getFahrzeugnummer().compareTo(o2.getFahrzeugnummer()));
+        wartungshalle.sort(((o1, o2) -> o1.getFahrzeugKategorie().compareTo(o2.getFahrzeugKategorie())));
+    }
+
 
     private void addToActive(Feuerwehrmann f) {
-        if (f instanceof lkwFahrer) {
-            personalLkwFahrer.add((lkwFahrer) f);
+        if (f instanceof LkwFahrer) {
+            personalLkwFahrer.add((LkwFahrer) f);
         } else {
-            personalPkwFahrer.add((pkwFahrer) f);
+            personalPkwFahrer.add((PkwFahrer) f);
         }
     }
 
     private void removeFromActive(Feuerwehrmann f) {
-        if (f instanceof lkwFahrer) {
+        if (f instanceof LkwFahrer) {
             personalLkwFahrer.remove(f);
         } else {
             personalPkwFahrer.remove(f);
@@ -201,7 +276,11 @@ public class Wache {
         return besatzung;
     } //Kann NULL zurückgeben
 
-    public Fahrzeug fahrzeugZuEinsatz(FahrzeugKategorie fahrzeugKategorie) {
+    /**
+     * @param fahrzeugKategorie gibt an, welche art von vahrzeug aus der Fahrzeighalle geholt werden soll
+     * @return Gibt ein als passend erkanntes Objekt vom typ Fahrzeug zurück
+     */
+    public Fahrzeug fahrzeugZuEinsatz(Fahrzeugkategorie fahrzeugKategorie) {
         switch (fahrzeugKategorie) {
             case ELW -> {
                 for (Fahrzeug f : fahrzeughalle) {
@@ -238,6 +317,10 @@ public class Wache {
         }
         return null;
     }
+
+    /**
+     * @param angekommeneFahrzeuge erhält eine Fahrzeugliste
+     */
     public void rueckkehr(ArrayList<Fahrzeug> angekommeneFahrzeuge){
         for (Fahrzeug fahrzeug:angekommeneFahrzeuge) {
             ArrayList<Feuerwehrmann> besatzung = fahrzeug.absitzen();
