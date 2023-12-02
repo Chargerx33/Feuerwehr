@@ -22,19 +22,19 @@ public class Leitstelle {
             wache.addPersonal(feuerwehrmann);
         }
         for (int i = 1; i <= 4; i++) {
-            Fahrzeug elw = new ELW(i, Status.ZWEI);
+            Fahrzeug elw = new ELW(i);
             wache.addFahrzeug(elw);
         }
         for (int i = 1; i <= 5; i++) {
-            Fahrzeug tlf = new TLF(i, Status.ZWEI);
+            Fahrzeug tlf = new TLF(i);
             wache.addFahrzeug(tlf);
         }
         for (int i = 1; i <= 4; i++) {
-            Fahrzeug mtf = new MTF(i, Status.ZWEI, 2004);
+            Fahrzeug mtf = new MTF(i, 2004);
             wache.addFahrzeug(mtf);
         }
         for (int i = 1; i <= 5; i++) {
-            Fahrzeug dlk = new DLK(i, Status.ZWEI, 23);
+            Fahrzeug dlk = new DLK(i, 23);
             wache.addFahrzeug(dlk);
         }
     }

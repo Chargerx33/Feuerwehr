@@ -24,8 +24,8 @@ public class FahrzeugPopup {
                 if (fahrzeug.equals(ausgewaelt)) return f;
             }
         } else if (result == JOptionPane.OK_CANCEL_OPTION) {
-            return new Fahrzeug(-1,FahrzeugKategorie.ELW,Status.ZWEI,FahrzeugArt.LKW,0);
+            return new Fahrzeug(-1,FahrzeugKategorie.ELW,FahrzeugArt.LKW,0);
         }
-        return new Fahrzeug(0,FahrzeugKategorie.ELW,Status.ZWEI,FahrzeugArt.LKW,0);
+        return new Fahrzeug(0,FahrzeugKategorie.ELW,FahrzeugArt.LKW,0);
     }
 }

@@ -4,8 +4,8 @@ public class ELW/*Einsatzleitwagen*/ extends Fahrzeug {
 
     private Dienstgrad dienstgrad = Dienstgrad.D_DIENST;
 
-    public ELW(int fahrzeugnummer,Status status) {
-        super(fahrzeugnummer,FahrzeugKategorie.ELW,status, FahrzeugArt.PKW, 2);
+    public ELW(int fahrzeugnummer) {
+        super(fahrzeugnummer,FahrzeugKategorie.ELW, FahrzeugArt.PKW, 2);
 
     }
 

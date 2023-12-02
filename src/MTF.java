@@ -6,8 +6,8 @@ public class MTF/*Mannschaftstransportfahrzeug*/ extends Fahrzeug {
      */
     private int baujahr;
 
-    public MTF(int fahrzeugnummer,Status status,int baujahr) {
-        super(fahrzeugnummer,FahrzeugKategorie.MTF, status, FahrzeugArt.PKW, 14);
+    public MTF(int fahrzeugnummer,int baujahr) {
+        super(fahrzeugnummer,FahrzeugKategorie.MTF, FahrzeugArt.PKW, 14);
         this.baujahr = baujahr;
     }
     /**

@@ -17,7 +17,7 @@ public class Fahrzeug {
         this.typ = FahrzeugArt.UNDEFINED;
     }
 
-    public Fahrzeug(int fahrzeugNummer,FahrzeugKategorie fahrzeugKategorie, Status status, FahrzeugArt typ, int sitze) {
+    public Fahrzeug(int fahrzeugNummer,FahrzeugKategorie fahrzeugKategorie, FahrzeugArt typ, int sitze) {
         this.fahrzeugNummer = fahrzeugNummer;
         this.fahrzeugKategorie = fahrzeugKategorie;
         this.status = status;
