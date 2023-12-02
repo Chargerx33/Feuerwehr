@@ -70,6 +70,7 @@ public class Wache {
         arten.add(EinsatzArt.VERKEHRSUNFALL);
         arten.add(EinsatzArt.NATURKATASTROPHE);
         arten.add(EinsatzArt.INDUSTRIEUNFALL);
+        ArrayList<EinsatzArt> moeglich = (ArrayList<EinsatzArt>) arten.clone();
 
         for (EinsatzArt einsatzArt: arten){
             Einsatz einsatz = new Einsatz(-1,einsatzArt);
@@ -88,10 +89,10 @@ public class Wache {
                     (einsatz.getBenoetigteFeuerwehrleute()<(personalPkwFahrer.size()+personalLkwFahrer.size()))
             )
             ){
-                arten.remove(einsatzArt);
+                moeglich.remove(einsatzArt);
             }
         }
-        return arten;
+        return moeglich;
     }
 
 

@@ -154,82 +154,90 @@ public class Leitstelle {
         /*Funktion in anderer klasse aufrufen, im gui alle beurlaubten Personen in Dropdown auflisten*/
     }
 
-    public void teamZuEinsatz() {
+    public boolean teamZuEinsatz() {
         /*Personen können durch Funktion besorgt werden,Fahrzeuge nach erfordern verbuchen und Personen hinzufügen, im GUI auswahl des einsatzes*/
         /*Weitergedacht: Mehr PPersonal hinzufügen, aber erst wenn das Programm läuft*/
         Einsatz e = selectEinsatz();
-        if (e.getEinsatzNummer() != -1) {
-            ArrayList<lkwFahrer> reservierteMtfFahrer = new ArrayList<lkwFahrer>();
-            if (e.getBenoetigteMtf() > 0) {
-                for (int i = 0; i < e.getBenoetigteMtf(); i++) {
-                    reservierteMtfFahrer.add((lkwFahrer) wache.generateBesatzung(1, true).getFirst());
-                    e.bedieneFeuerwehrmann(1);
-                }
-            }
-            for (int i = 0; i < e.getBenoetigteElw(); ) {
-                ELW fahrzeug = (ELW) wache.fahrzeugZuEinsatz(FahrzeugKategorie.ELW);
-                int benoetigteFeuerwehrleute = fahrzeug.getSitze();
-                if (fahrzeug.getSitze() > e.getBenoetigteFeuerwehrleute()) {
-                    benoetigteFeuerwehrleute = e.getBenoetigteFeuerwehrleute();
-                }
-                ArrayList<Feuerwehrmann> besatzung = wache.generateBesatzung(benoetigteFeuerwehrleute, fahrzeug.getTyp() == FahrzeugArt.LKW);
-                fahrzeug.aufsitzen(besatzung);
-                Dienstgrad dienstgrad = Dienstgrad.D_DIENST;
-                for (Feuerwehrmann f : besatzung) {
-                    if (f.getDienstgrad().istHoeherAls(dienstgrad)) {
-                        dienstgrad = f.getDienstgrad();
+        if (wache.moeglicheEinsatzArten().contains(e.getEinsatzArt())) {
+
+
+            if (e.getEinsatzNummer() != -1) {
+                ArrayList<lkwFahrer> reservierteMtfFahrer = new ArrayList<lkwFahrer>();
+                if (e.getBenoetigteMtf() > 0) {
+                    for (int i = 0; i < e.getBenoetigteMtf(); i++) {
+                        reservierteMtfFahrer.add((lkwFahrer) wache.generateBesatzung(1, true).getFirst());
+                        e.bedieneFeuerwehrmann(1);
                     }
                 }
-                fahrzeug.setDienstgrad(dienstgrad);
-                e.bedieneElw(1);
-                e.bedieneFeuerwehrmann(besatzung.size());
-                e.fahrzeugeEinbeziehen(fahrzeug);
-            }
-            for (int i = 0; i < e.getBenoetigteTlf(); ) {
-                Fahrzeug fahrzeug = wache.fahrzeugZuEinsatz(FahrzeugKategorie.TLF);
-                int benoetigteFeuerwehrleute = fahrzeug.getSitze();
-                if (fahrzeug.getSitze() > e.getBenoetigteFeuerwehrleute()) {
-                    benoetigteFeuerwehrleute = e.getBenoetigteFeuerwehrleute();
+                for (int i = 0; i < e.getBenoetigteElw(); ) {
+                    ELW fahrzeug = (ELW) wache.fahrzeugZuEinsatz(FahrzeugKategorie.ELW);
+                    int benoetigteFeuerwehrleute = fahrzeug.getSitze();
+                    if (fahrzeug.getSitze() > e.getBenoetigteFeuerwehrleute()) {
+                        benoetigteFeuerwehrleute = e.getBenoetigteFeuerwehrleute();
+                    }
+                    ArrayList<Feuerwehrmann> besatzung = wache.generateBesatzung(benoetigteFeuerwehrleute, fahrzeug.getTyp() == FahrzeugArt.LKW);
+                    fahrzeug.aufsitzen(besatzung);
+                    Dienstgrad dienstgrad = Dienstgrad.D_DIENST;
+                    for (Feuerwehrmann f : besatzung) {
+                        if (f.getDienstgrad().istHoeherAls(dienstgrad)) {
+                            dienstgrad = f.getDienstgrad();
+                        }
+                    }
+                    fahrzeug.setDienstgrad(dienstgrad);
+                    e.bedieneElw(1);
+                    e.bedieneFeuerwehrmann(besatzung.size());
+                    e.fahrzeugeEinbeziehen(fahrzeug);
                 }
-                ArrayList<Feuerwehrmann> besatzung = wache.generateBesatzung(benoetigteFeuerwehrleute, fahrzeug.getTyp() == FahrzeugArt.LKW);
-                fahrzeug.aufsitzen(besatzung);
-                e.bedieneTlf(1);
-                e.bedieneFeuerwehrmann(besatzung.size());
-                e.fahrzeugeEinbeziehen(fahrzeug);
-            }
-            for (int i = 0; i < e.getBenoetigteDlk(); ) {
-                Fahrzeug fahrzeug = wache.fahrzeugZuEinsatz(FahrzeugKategorie.DLK);
-                int benoetigteFeuerwehrleute = fahrzeug.getSitze();
-                if (fahrzeug.getSitze() > e.getBenoetigteFeuerwehrleute()) {
-                    benoetigteFeuerwehrleute = e.getBenoetigteFeuerwehrleute();
+                for (int i = 0; i < e.getBenoetigteTlf(); ) {
+                    Fahrzeug fahrzeug = wache.fahrzeugZuEinsatz(FahrzeugKategorie.TLF);
+                    int benoetigteFeuerwehrleute = fahrzeug.getSitze();
+                    if (fahrzeug.getSitze() > e.getBenoetigteFeuerwehrleute()) {
+                        benoetigteFeuerwehrleute = e.getBenoetigteFeuerwehrleute();
+                    }
+                    ArrayList<Feuerwehrmann> besatzung = wache.generateBesatzung(benoetigteFeuerwehrleute, fahrzeug.getTyp() == FahrzeugArt.LKW);
+                    fahrzeug.aufsitzen(besatzung);
+                    e.bedieneTlf(1);
+                    e.bedieneFeuerwehrmann(besatzung.size());
+                    e.fahrzeugeEinbeziehen(fahrzeug);
                 }
-                ArrayList<Feuerwehrmann> besatzung = wache.generateBesatzung(benoetigteFeuerwehrleute, fahrzeug.getTyp() == FahrzeugArt.LKW);
-                fahrzeug.aufsitzen(besatzung);
-                e.bedieneDlk(1);
-                e.bedieneFeuerwehrmann(besatzung.size());
-                e.fahrzeugeEinbeziehen(fahrzeug);
-            }
-            for (int i = 0; i < e.getBenoetigteMtf(); ) {
-                Fahrzeug fahrzeug = wache.fahrzeugZuEinsatz(FahrzeugKategorie.MTF);
-                int benoetigteFeuerwehrleute = fahrzeug.getSitze() - 1;
-                if (fahrzeug.getSitze() - 1 > e.getBenoetigteFeuerwehrleute()) {
-                    benoetigteFeuerwehrleute = e.getBenoetigteFeuerwehrleute()-1;
+                for (int i = 0; i < e.getBenoetigteDlk(); ) {
+                    Fahrzeug fahrzeug = wache.fahrzeugZuEinsatz(FahrzeugKategorie.DLK);
+                    int benoetigteFeuerwehrleute = fahrzeug.getSitze();
+                    if (fahrzeug.getSitze() > e.getBenoetigteFeuerwehrleute()) {
+                        benoetigteFeuerwehrleute = e.getBenoetigteFeuerwehrleute();
+                    }
+                    ArrayList<Feuerwehrmann> besatzung = wache.generateBesatzung(benoetigteFeuerwehrleute, fahrzeug.getTyp() == FahrzeugArt.LKW);
+                    fahrzeug.aufsitzen(besatzung);
+                    e.bedieneDlk(1);
+                    e.bedieneFeuerwehrmann(besatzung.size());
+                    e.fahrzeugeEinbeziehen(fahrzeug);
                 }
-                ArrayList<Feuerwehrmann> besatzung = new ArrayList<Feuerwehrmann>();
-                besatzung.add(reservierteMtfFahrer.getFirst());
-                reservierteMtfFahrer.removeFirst();
-                if (benoetigteFeuerwehrleute != 0) {
-                    besatzung.addAll(wache.generateBesatzung(benoetigteFeuerwehrleute, false));
-                }
-                fahrzeug.aufsitzen(besatzung);
-                e.bedieneMTF(1);
-                e.bedieneFeuerwehrmann(besatzung.size());
-                e.fahrzeugeEinbeziehen(fahrzeug);
+                for (int i = 0; i < e.getBenoetigteMtf(); ) {
+                    Fahrzeug fahrzeug = wache.fahrzeugZuEinsatz(FahrzeugKategorie.MTF);
+                    int benoetigteFeuerwehrleute = fahrzeug.getSitze() - 1;
+                    if (fahrzeug.getSitze() - 1 > e.getBenoetigteFeuerwehrleute()) {
+                        benoetigteFeuerwehrleute = e.getBenoetigteFeuerwehrleute() - 1;
+                    }
+                    ArrayList<Feuerwehrmann> besatzung = new ArrayList<Feuerwehrmann>();
+                    besatzung.add(reservierteMtfFahrer.getFirst());
+                    reservierteMtfFahrer.removeFirst();
+                    if (benoetigteFeuerwehrleute != 0) {
+                        besatzung.addAll(wache.generateBesatzung(benoetigteFeuerwehrleute, false));
+                    }
+                    fahrzeug.aufsitzen(besatzung);
+                    e.bedieneMTF(1);
+                    e.bedieneFeuerwehrmann(besatzung.size());
+                    e.fahrzeugeEinbeziehen(fahrzeug);
 
 
-            }
+                }
+                return true;
 
+            }
         }
+
+        return false;
+
 
     }
 

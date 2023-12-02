@@ -135,10 +135,13 @@ public class MainWindow extends JDialog {
     }
     private void onNeuerEinsatz(){
         leitstelle.neuerEinsatz();
-        updateStatusDerWache();
     }
     private void onEinsatzAnfahren(){
-        leitstelle.teamZuEinsatz();
+        boolean angefahren =  leitstelle.teamZuEinsatz();
+        if (!angefahren) {
+
+            JOptionPane.showMessageDialog(null,"Nicht genügend Einsatzkräfte/Fahrzeuge","Anfahren nicht möglich!", JOptionPane.ERROR_MESSAGE);
+        }
         updateStatusDerWache();
     }
     private void onEinsatzInfo(){

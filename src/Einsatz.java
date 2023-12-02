@@ -87,6 +87,7 @@ public class Einsatz {
 
     public String getSonderatribute(){
         StringBuilder sonderatribute = new StringBuilder();
+        sonderatribute.append(einsatzArt.toString() + "\n");
         int i = 1;
         for (Fahrzeug f: fahrzeuge) {
             sonderatribute.append(String.valueOf(i)+": ");
