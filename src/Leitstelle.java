@@ -39,10 +39,10 @@ public class Leitstelle {
         }
     }
 
-    public void createEinsatz() {
+    public void neuerEinsatz() {
         EinsatzArtPopup eap = new EinsatzArtPopup();
         EinsatzArt e = eap.getData();
-        Einsatz einsatz = new Einsatz(calculateEinsatzNummer(), e);
+        Einsatz einsatz = new Einsatz(errechneEinsatzNummer(), e);
         if (e != EinsatzArt.UNDEFINED) {
 
             einsaetze.add(einsatz);
@@ -54,12 +54,15 @@ public class Leitstelle {
         //einsatznummer evtl automatisch generieren
     }
 
-    private int calculateEinsatzNummer() {
+    private int errechneEinsatzNummer() {
         int highest = 0;
         for (Einsatz e : einsaetze) {
             if (e.getEinsatzNummer() > highest) highest = e.getEinsatzNummer();
         }
         return (highest + 1);
+    }
+    public String statusDerWache() {
+        return wache.statusDerWache();
     }
 
     private Einsatz selectEinsatz() {
@@ -88,13 +91,16 @@ public class Leitstelle {
         einsaetze.remove(e);
     }
 
-    public void warteFahrzeug(int fahrzeugnummer, FahrzeugKategorie fahrzeugKategorie) {
-        //GUIklasse(wache.getFahrzeugeInFahrzeughalle())
-        wache.driveToWartungshalle(fahrzeugnummer, fahrzeugKategorie);
+    public void warteFahrzeug() {
+        FahrzeugPopup fahrzeugPopup = new FahrzeugPopup();
+        Fahrzeug fahrzeug = fahrzeugPopup.getData(wache.getFahrzeugeInFahrzeughalle());
+        wache.fahreInWartungshalle(fahrzeug);
     }
 
-    public void reactivateFahrzeug(int fahrzeugnummer, FahrzeugKategorie fahrzeugKategorie) {
-        wache.driveToFahrzeughalle(fahrzeugnummer, fahrzeugKategorie);
+    public void reaktiviereFahrzeug() {
+        FahrzeugPopup fahrzeugPopup = new FahrzeugPopup();
+        Fahrzeug fahrzeug = fahrzeugPopup.getData(wache.getFahrzeugeInWartungshalle());
+        wache.fahreInFahrzeughalle(fahrzeug);
     }
 
     public void erkrankung(int personalnummer) {

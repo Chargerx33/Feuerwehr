@@ -25,14 +25,6 @@ public class Fahrzeug {
         this.sitze = sitze;
 
     }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
     public int getSitze(){
         return sitze;
     }
@@ -40,9 +32,11 @@ public class Fahrzeug {
     public FahrzeugArt getTyp() {
         return typ;
     }
-
-    public void setTyp(FahrzeugArt typ) {
-        this.typ = typ;
+    public Integer getFahrzeugnummer(){
+        return fahrzeugNummer;
+    }
+    public FahrzeugKategorie getFahrzeugKategorie(){
+        return fahrzeugKategorie;
     }
 
     public void aufsitzen(ArrayList<Feuerwehrmann> besatzung) {

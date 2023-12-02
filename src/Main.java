@@ -1,4 +1,6 @@
-
+/**
+ * ☃
+ */
 public class Main {
 
     public static void main(String[] args) {
@@ -6,8 +8,7 @@ public class Main {
         MainWindow dialog = new MainWindow(leitstelle);
         dialog.pack();
         dialog.setVisible(true);
-        System.out.println(0);
+        System.out.println(0); //für Debugging zum anhalten nach einem Programmdurchlauf
     }
-
 
 }
