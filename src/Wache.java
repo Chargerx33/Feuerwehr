@@ -1,14 +1,11 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.Callable;
 
 public class Wache {
     private ArrayList<Fahrzeug> fahrzeughalle = new ArrayList<Fahrzeug>();
     private ArrayList<Fahrzeug> wartungshalle = new ArrayList<Fahrzeug>();
-    private ArrayList<pkwFahrer> personalPkwFahrer = new ArrayList<pkwFahrer>();
-    private ArrayList<lkwFahrer> personalLkwFahrer = new ArrayList<lkwFahrer>();
+    private ArrayList<PkwFahrer> personalPkwFahrer = new ArrayList<PkwFahrer>();
+    private ArrayList<LkwFahrer> personalLkwFahrer = new ArrayList<LkwFahrer>();
 
     private ArrayList<Feuerwehrmann> krank = new ArrayList<Feuerwehrmann>();
     private ArrayList<Feuerwehrmann> urlaub = new ArrayList<Feuerwehrmann>();
@@ -18,10 +15,10 @@ public class Wache {
     }
 
     public void addPersonal(Feuerwehrmann feuerwehrmann) {
-        if (feuerwehrmann instanceof lkwFahrer) {
-            personalLkwFahrer.add((lkwFahrer) feuerwehrmann);
+        if (feuerwehrmann instanceof LkwFahrer) {
+            personalLkwFahrer.add((LkwFahrer) feuerwehrmann);
         } else {
-            personalPkwFahrer.add((pkwFahrer) feuerwehrmann);
+            personalPkwFahrer.add((PkwFahrer) feuerwehrmann);
         }
     }
     public String statusDerWache(){
@@ -34,7 +31,7 @@ public class Wache {
         status.append("Verfügbare DLK: " + verfuegbareFahrzeuge[2] + "\n");
         status.append("Verfügbare MTF: " + verfuegbareFahrzeuge[3] + "\n");
         status.append("Noch mögliche Einsätze: ");
-        for(EinsatzArt einsatzArt: moeglicheEinsatzArten()){
+        for(Einsatzart einsatzArt: moeglicheEinsatzArten()){
             status.append(einsatzArt.toString() + ", ");
         }
 
@@ -63,25 +60,25 @@ public class Wache {
         }
         return verfuegbar;
     }
-    public ArrayList<EinsatzArt> moeglicheEinsatzArten(){
-        ArrayList<EinsatzArt> arten = new ArrayList<EinsatzArt>();
+    public ArrayList<Einsatzart> moeglicheEinsatzArten(){
+        ArrayList<Einsatzart> arten = new ArrayList<Einsatzart>();
         int[] verfuegbareFahrzeuge = verfuegbareFahrzeuge();
-        arten.add(EinsatzArt.WOHNUNGSBRAND);
-        arten.add(EinsatzArt.VERKEHRSUNFALL);
-        arten.add(EinsatzArt.NATURKATASTROPHE);
-        arten.add(EinsatzArt.INDUSTRIEUNFALL);
-        ArrayList<EinsatzArt> moeglich = (ArrayList<EinsatzArt>) arten.clone();
+        arten.add(Einsatzart.WOHNUNGSBRAND);
+        arten.add(Einsatzart.VERKEHRSUNFALL);
+        arten.add(Einsatzart.NATURKATASTROPHE);
+        arten.add(Einsatzart.INDUSTRIEUNFALL);
+        ArrayList<Einsatzart> moeglich = (ArrayList<Einsatzart>) arten.clone();
 
-        for (EinsatzArt einsatzArt: arten){
+        for (Einsatzart einsatzArt: arten){
             Einsatz einsatz = new Einsatz(-1,einsatzArt);
-            int benoetigteLkwFahrer = einsatz.getBenoetigteMtf()+einsatz.getBenoetigteDlk()+einsatz.getBenoetigteTlf();
+            int benoetigteLkwFahrer = einsatz.getBenoetigteMTF()+einsatz.getBenoetigteDLK()+einsatz.getBenoetigteTLF();
             if (!(
                     //Prüfung, ob genug Fahrzeuge vorhanden sind
                     (
-                        einsatz.getBenoetigteElw()<=verfuegbareFahrzeuge[0] &&
-                        einsatz.getBenoetigteTlf()<=verfuegbareFahrzeuge[1] &&
-                        einsatz.getBenoetigteTlf()<=verfuegbareFahrzeuge[2] &&
-                        einsatz.getBenoetigteMtf()<=verfuegbareFahrzeuge[3]
+                        einsatz.getBenoetigteELW()<=verfuegbareFahrzeuge[0] &&
+                        einsatz.getBenoetigteTLF()<=verfuegbareFahrzeuge[1] &&
+                        einsatz.getBenoetigteTLF()<=verfuegbareFahrzeuge[2] &&
+                        einsatz.getBenoetigteMTF()<=verfuegbareFahrzeuge[3]
                     ) &&
                     //Prüfung, ob genug LKW fahrer vorhanden sind
                     (benoetigteLkwFahrer<=personalLkwFahrer.size()) &&
@@ -199,15 +196,15 @@ public class Wache {
 
 
     private void addToActive(Feuerwehrmann f) {
-        if (f instanceof lkwFahrer) {
-            personalLkwFahrer.add((lkwFahrer) f);
+        if (f instanceof LkwFahrer) {
+            personalLkwFahrer.add((LkwFahrer) f);
         } else {
-            personalPkwFahrer.add((pkwFahrer) f);
+            personalPkwFahrer.add((PkwFahrer) f);
         }
     }
 
     private void removeFromActive(Feuerwehrmann f) {
-        if (f instanceof lkwFahrer) {
+        if (f instanceof LkwFahrer) {
             personalLkwFahrer.remove(f);
         } else {
             personalPkwFahrer.remove(f);
@@ -283,7 +280,7 @@ public class Wache {
      * @param fahrzeugKategorie gibt an, welche art von vahrzeug aus der Fahrzeighalle geholt werden soll
      * @return Gibt ein als passend erkanntes Objekt vom typ Fahrzeug zurück
      */
-    public Fahrzeug fahrzeugZuEinsatz(FahrzeugKategorie fahrzeugKategorie) {
+    public Fahrzeug fahrzeugZuEinsatz(Fahrzeugkategorie fahrzeugKategorie) {
         switch (fahrzeugKategorie) {
             case ELW -> {
                 for (Fahrzeug f : fahrzeughalle) {

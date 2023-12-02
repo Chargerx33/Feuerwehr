@@ -114,7 +114,7 @@ public class MainWindow extends JDialog {
     }
 
     private void onUrlaubsrueckkehr() {
-        leitstelle.backToWork(0);
+        leitstelle.zureuckVomUrlaub(0);
         updateStatusDerWache();
     }
     private void onFahrzeugWartung() {

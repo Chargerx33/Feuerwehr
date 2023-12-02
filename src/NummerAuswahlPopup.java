@@ -2,10 +2,21 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Generische Klasse für die Auswahl einer Nummer aus einer Dropdown-Liste.
+ */
 public class NummerAuswahlPopup {
-    public int getData(ArrayList<Integer> personal, String titel, String text) {
+    /**
+     * Zeigt einen Dialog an, um eine Nummer auszuwählen.
+     *
+     * @param integers Eine Liste der auswählbaren Nummern.
+     * @param titel   Der Titel des Dialogs.
+     * @param text    Der Text, der die Auswahl beschreibt.
+     * @return Die ausgewählte Nummer oder -1 bzw. 0, was einen Abbruch darstellt
+     */
+    public int getData(ArrayList<Integer> integers, String titel, String text) {
         JComboBox<Integer> dropdown = new JComboBox<Integer>();
-        for (int i : personal) {
+        for (int i : integers) {
             dropdown.addItem(i);
         }
 

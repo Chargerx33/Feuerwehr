@@ -1,23 +1,31 @@
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Klasse, die eine Feuerwehrleitstelle repräsentiert.
+ * In den Attributen werden die Wache und die Einsätze gespeichert
+ */
 public class Leitstelle {
     private Wache wache = new Wache();
     private ArrayList<Einsatz> einsaetze = new ArrayList<Einsatz>();
 
-
+    /**
+     * Konstruktor für die Leitstelle welcher die Funktion "generateFeuerwache" aufruft um die Feuerwache zu erstellen
+     */
     public Leitstelle() {
         genrateFeuerwache();
     }
 
-
+    /**
+     * Generiert die Feuerwache anhand festgesetzter Werte
+     */
     private void genrateFeuerwache() { // Hier werden die gegebenen Daten in die Struktur des Programms eingesetzt
         for (int i = 1; i <= 80; i++) {
             Feuerwehrmann feuerwehrmann;
             if (i <= 10) {
-                feuerwehrmann = new lkwFahrer(i);
+                feuerwehrmann = new LkwFahrer(i);
             } else {
-                feuerwehrmann = new pkwFahrer(i);
+                feuerwehrmann = new PkwFahrer(i);
             }
             wache.addPersonal(feuerwehrmann);
         }
@@ -38,29 +46,37 @@ public class Leitstelle {
             wache.addFahrzeug(dlk);
         }
     }
-
+    /**
+     * Startet die Erfassung eines neuen Einsatzes und bricht diese bei der erzeugung von der Einsatzart "UNDEFINED" ab.
+     */
     public void neuerEinsatz() {
-        EinsatzArtPopup eap = new EinsatzArtPopup();
-        EinsatzArt e = eap.getData();
+        EinsatzartPopup eap = new EinsatzartPopup();
+        Einsatzart e = eap.getData();
         Einsatz einsatz = new Einsatz(errechneEinsatzNummer(), e);
-        if (e != EinsatzArt.UNDEFINED) {
+        if (e != Einsatzart.UNDEFINED) {
 
             einsaetze.add(einsatz);
         } else {
             System.out.println("Einsatzaufnahme abgebrochen");
         }
-        System.out.println(einsatz);
-        //vlt per Switch Case verfahren, da einsatzarten eigene klassen und konstruktoren haben
-        //einsatznummer evtl automatisch generieren
     }
 
+    /**
+     * Errechnet die Einsatznummer anhand der bestehenden Einsätze
+     * @return gibt dei errechnete Einsatznummer zurück
+     */
     private int errechneEinsatzNummer() {
         int highest = 0;
         for (Einsatz e : einsaetze) {
-            if (e.getEinsatzNummer() > highest) highest = e.getEinsatzNummer();
+            if (e.getEinsatznummer() > highest) highest = e.getEinsatznummer();
         }
         return (highest + 1);
     }
+    /**
+     * Gibt die Zeichenkette, welche in "wache.statusDerWache" erzeugt wurde zurück
+     *
+     * @return die in "wache.statusDerWache" erzeugte Zeichenkette
+     */
     public String statusDerWache() {
         return wache.statusDerWache();
     }
@@ -68,41 +84,73 @@ public class Leitstelle {
     private Einsatz selectEinsatz() {
         ArrayList<Integer> einsatznummern = new ArrayList<Integer>();
         for (Einsatz e : einsaetze) {
-            einsatznummern.add(e.getEinsatzNummer());
+            einsatznummern.add(e.getEinsatznummer());
         }
         Collections.sort(einsatznummern);
         NummerAuswahlPopup einsatzAuswahlPopup = new NummerAuswahlPopup();
         int selected = einsatzAuswahlPopup.getData(einsatznummern,"Einsatz auswahl", "Einsatznummer: ");
         for (Einsatz e : einsaetze) {
-            if (e.getEinsatzNummer() == selected) {
+            if (e.getEinsatznummer() == selected) {
                 return e;
             }
         }
-        return new Einsatz(-1, EinsatzArt.UNDEFINED);
+        return new Einsatz(-1, Einsatzart.UNDEFINED);
     }
+    /**
+     * Gibt Informationen zu einem ausgewählten Einsatz zurück.
+     * "einsatz" stellt hierbei den zuvor ausgewählten Einsatz dar.
+     * @return Informationen welche in "einsatz.getSonderattribute" erzeugt wurden.
+     *
+     */
     public String einsatzInfo(){
         Einsatz einsatz = selectEinsatz();
-        return einsatz.getSonderatribute();
+        return einsatz.getSonderattribute();
     }
 
+    /**
+     * Beendet einen zuvor ausgewählten Einsatz.
+     * dabei werden die am Einsatz anwesenden Fahrzeuge an "wache.rueckkehr" übergeben und folgend der Einsatz gelöscht
+     */
     public void beendeEinsatz() {
         Einsatz e = selectEinsatz();
         wache.rueckkehr(e.einsatzEnde());
         einsaetze.remove(e);
     }
 
+    /**
+     * Verlegt ein zuvor ausgewähltes Fahrzeug in die Wartungshalle.
+     * Ein Fahrzeug mit der Fahrzeugnummer 0 oder -1 stellt hierbei einen Abbruch dar.
+     */
     public void warteFahrzeug() {
         FahrzeugPopup fahrzeugPopup = new FahrzeugPopup();
         Fahrzeug fahrzeug = fahrzeugPopup.getData(wache.getFahrzeugeInFahrzeughalle());
-        wache.fahreInWartungshalle(fahrzeug);
+        if (fahrzeug.fahrzeugnummer == -1 || fahrzeug.fahrzeugnummer == 0) {
+            System.out.println("Fahrzeug auf Wartung setzen abgebrochen");
+        } else {
+            wache.fahreInWartungshalle(fahrzeug);
+        }
     }
 
+    /**
+     * Reaktiviert ein Fahrzeug aus der Wartungshalle.
+     * Ein Fahrzeug mit der Fahrzeugnummer 0 oder -1 stellt hierbei einen Abbruch dar.
+     */
     public void reaktiviereFahrzeug() {
         FahrzeugPopup fahrzeugPopup = new FahrzeugPopup();
         Fahrzeug fahrzeug = fahrzeugPopup.getData(wache.getFahrzeugeInWartungshalle());
-        wache.fahreInFahrzeughalle(fahrzeug);
+        if (fahrzeug.fahrzeugnummer == -1 || fahrzeug.fahrzeugnummer == 0) {
+            System.out.println("Fahrzeug auf Wartung setzen abgebrochen");
+        } else {
+            wache.fahreInFahrzeughalle(fahrzeug);
+        }
     }
 
+    /**
+     * Meldet einen zuvor ausgewählten Feuerwehrmann als erkrankt.
+     * @param personalnummer die Personalnummer des Erkrankten.
+     * hierbei stellt die Personalnummer 0 einen Aufruf auf das Popup zur auswahl eines Feuerwehrmanns
+     * und die Personalnummer -1 einen Abbruch der Aktion dar
+     */
     public void erkrankung(int personalnummer) {
         if (personalnummer == 0) {
             NummerAuswahlPopup t = new NummerAuswahlPopup();
@@ -114,7 +162,12 @@ public class Leitstelle {
             wache.makeKrank(personalnummer);
         }
     }
-
+    /**
+     * Meldet einen zuvor ausgewählten Feuerwehrmann als gesund.
+     * @param personalnummer die Personalnummer des Erkrankten
+     *  hierbei stellt die Personalnummer 0 einen Aufruf auf das Popup zur auswahl eines Feuerwehrmanns
+     * und die Personalnummer -1 einen Abbruch der Aktion dar
+     */
     public void gesund(int personalnummer) {
         if (personalnummer == 0) {
             NummerAuswahlPopup t = new NummerAuswahlPopup();
@@ -125,9 +178,14 @@ public class Leitstelle {
         } else {
             wache.makeGesund(personalnummer);
         }
-        /*Funktion in anderer klasse aufrufen, im gui alle kranken Personen in Dropdown auflisten*/
     }
 
+    /**
+     * Meldet einen Feuerwehrmann als im Urlaub.
+     * @param personalnummer die Personalnummer des Beurlaubten
+     * hierbei stellt die Personalnummer 0 einen Aufruf auf das Popup zur auswahl eines Feuerwehrmanns dar
+     * und die Personalnummer -1 einen Abbruch der Aktion dar
+     */
     public void urlaub(int personalnummer) {
         if (personalnummer == 0) {
             NummerAuswahlPopup t = new NummerAuswahlPopup();
@@ -138,13 +196,18 @@ public class Leitstelle {
         } else {
             wache.toUrlaub(personalnummer);
         }
-        /*Funktion in anderer klasse aufrufen, im gui alle gesunden Personen in Dropdown auflisten*/
     }
 
-    public void backToWork(int personalnummer) {
+    /**
+     * Meldet die Rückkehr eines Feuerwehrmanns aus dem Urlaub.
+     * @param personalnummer die Personalnummer des aus dem Urlaub Zurückkehrenden
+     * hierbei stellt die Personalnummer 0 einen Aufruf auf das Popup zur auswahl eines Feuerwehrmanns dar
+     * und die Personalnummer -1 einen Abbruch der Aktion dar
+     */
+    public void zureuckVomUrlaub(int personalnummer) {
         if (personalnummer == 0) {
             NummerAuswahlPopup t = new NummerAuswahlPopup();
-            backToWork(t.getData(wache.getUrlaubPersonalnummern(),"Uhrlaubsrückkehr", "Wer ist aus dem Urlaub zurück?  "));
+            zureuckVomUrlaub(t.getData(wache.getUrlaubPersonalnummern(),"Uhrlaubsrückkehr", "Wer ist aus dem Urlaub zurück?  "));
 
         } else if (personalnummer == -1) {
             System.out.println("Aktivsetzen abgebrochen");
@@ -154,28 +217,31 @@ public class Leitstelle {
         /*Funktion in anderer klasse aufrufen, im gui alle beurlaubten Personen in Dropdown auflisten*/
     }
 
+    /**
+     * Teambildung für einen Einsatz.
+     *
+     * @return True, wenn das Team für den Einsatz gebildet wurde, sonst False.
+     */
     public boolean teamZuEinsatz() {
-        /*Personen können durch Funktion besorgt werden,Fahrzeuge nach erfordern verbuchen und Personen hinzufügen, im GUI auswahl des einsatzes*/
-        /*Weitergedacht: Mehr PPersonal hinzufügen, aber erst wenn das Programm läuft*/
         Einsatz e = selectEinsatz();
         if (wache.moeglicheEinsatzArten().contains(e.getEinsatzArt())) {
 
 
-            if (e.getEinsatzNummer() != -1) {
-                ArrayList<lkwFahrer> reservierteMtfFahrer = new ArrayList<lkwFahrer>();
-                if (e.getBenoetigteMtf() > 0) {
-                    for (int i = 0; i < e.getBenoetigteMtf(); i++) {
-                        reservierteMtfFahrer.add((lkwFahrer) wache.generateBesatzung(1, true).getFirst());
+            if (e.getEinsatznummer() != -1) {
+                ArrayList<LkwFahrer> reservierteMtfFahrer = new ArrayList<LkwFahrer>();
+                if (e.getBenoetigteMTF() > 0) {
+                    for (int i = 0; i < e.getBenoetigteMTF(); i++) {
+                        reservierteMtfFahrer.add((LkwFahrer) wache.generateBesatzung(1, true).getFirst());
                         e.bedieneFeuerwehrmann(1);
                     }
                 }
-                for (int i = 0; i < e.getBenoetigteElw(); ) {
-                    ELW fahrzeug = (ELW) wache.fahrzeugZuEinsatz(FahrzeugKategorie.ELW);
+                for (int i = 0; i < e.getBenoetigteELW(); ) {
+                    ELW fahrzeug = (ELW) wache.fahrzeugZuEinsatz(Fahrzeugkategorie.ELW);
                     int benoetigteFeuerwehrleute = fahrzeug.getSitze();
                     if (fahrzeug.getSitze() > e.getBenoetigteFeuerwehrleute()) {
                         benoetigteFeuerwehrleute = e.getBenoetigteFeuerwehrleute();
                     }
-                    ArrayList<Feuerwehrmann> besatzung = wache.generateBesatzung(benoetigteFeuerwehrleute, fahrzeug.getTyp() == FahrzeugArt.LKW);
+                    ArrayList<Feuerwehrmann> besatzung = wache.generateBesatzung(benoetigteFeuerwehrleute, fahrzeug.getArt() == FahrzeugArt.LKW);
                     fahrzeug.aufsitzen(besatzung);
                     Dienstgrad dienstgrad = Dienstgrad.D_DIENST;
                     for (Feuerwehrmann f : besatzung) {
@@ -188,32 +254,32 @@ public class Leitstelle {
                     e.bedieneFeuerwehrmann(besatzung.size());
                     e.fahrzeugeEinbeziehen(fahrzeug);
                 }
-                for (int i = 0; i < e.getBenoetigteTlf(); ) {
-                    Fahrzeug fahrzeug = wache.fahrzeugZuEinsatz(FahrzeugKategorie.TLF);
+                for (int i = 0; i < e.getBenoetigteTLF(); ) {
+                    Fahrzeug fahrzeug = wache.fahrzeugZuEinsatz(Fahrzeugkategorie.TLF);
                     int benoetigteFeuerwehrleute = fahrzeug.getSitze();
                     if (fahrzeug.getSitze() > e.getBenoetigteFeuerwehrleute()) {
                         benoetigteFeuerwehrleute = e.getBenoetigteFeuerwehrleute();
                     }
-                    ArrayList<Feuerwehrmann> besatzung = wache.generateBesatzung(benoetigteFeuerwehrleute, fahrzeug.getTyp() == FahrzeugArt.LKW);
+                    ArrayList<Feuerwehrmann> besatzung = wache.generateBesatzung(benoetigteFeuerwehrleute, fahrzeug.getArt() == FahrzeugArt.LKW);
                     fahrzeug.aufsitzen(besatzung);
                     e.bedieneTlf(1);
                     e.bedieneFeuerwehrmann(besatzung.size());
                     e.fahrzeugeEinbeziehen(fahrzeug);
                 }
-                for (int i = 0; i < e.getBenoetigteDlk(); ) {
-                    Fahrzeug fahrzeug = wache.fahrzeugZuEinsatz(FahrzeugKategorie.DLK);
+                for (int i = 0; i < e.getBenoetigteDLK(); ) {
+                    Fahrzeug fahrzeug = wache.fahrzeugZuEinsatz(Fahrzeugkategorie.DLK);
                     int benoetigteFeuerwehrleute = fahrzeug.getSitze();
                     if (fahrzeug.getSitze() > e.getBenoetigteFeuerwehrleute()) {
                         benoetigteFeuerwehrleute = e.getBenoetigteFeuerwehrleute();
                     }
-                    ArrayList<Feuerwehrmann> besatzung = wache.generateBesatzung(benoetigteFeuerwehrleute, fahrzeug.getTyp() == FahrzeugArt.LKW);
+                    ArrayList<Feuerwehrmann> besatzung = wache.generateBesatzung(benoetigteFeuerwehrleute, fahrzeug.getArt() == FahrzeugArt.LKW);
                     fahrzeug.aufsitzen(besatzung);
                     e.bedieneDlk(1);
                     e.bedieneFeuerwehrmann(besatzung.size());
                     e.fahrzeugeEinbeziehen(fahrzeug);
                 }
-                for (int i = 0; i < e.getBenoetigteMtf(); ) {
-                    Fahrzeug fahrzeug = wache.fahrzeugZuEinsatz(FahrzeugKategorie.MTF);
+                for (int i = 0; i < e.getBenoetigteMTF(); ) {
+                    Fahrzeug fahrzeug = wache.fahrzeugZuEinsatz(Fahrzeugkategorie.MTF);
                     int benoetigteFeuerwehrleute = fahrzeug.getSitze() - 1;
                     if (fahrzeug.getSitze() - 1 > e.getBenoetigteFeuerwehrleute()) {
                         benoetigteFeuerwehrleute = e.getBenoetigteFeuerwehrleute() - 1;
@@ -239,12 +305,6 @@ public class Leitstelle {
         return false;
 
 
-    }
-
-    public void stopProgram() {
-        /*Nicht Erlauben wenn einsätze offen, Weitergedacht: Speichern und beim Start vom Programm nach letztem Save suchen, falls vorhanden*/
-        /*Bei Erster version: Sollen wir einen Force Close Knopf einbauen?  Ja:felix,  Nein: */
-        /*Just For Fun: Ne kurze Animation*/
     }
 }
 

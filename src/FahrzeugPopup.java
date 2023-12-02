@@ -2,7 +2,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Klasse, die ein Popup zur Auswahl eines Fahrzeugs erstellt.
+ */
 public class FahrzeugPopup {
+
+    /**
+     * Zeigt ein Popup zur Auswahl eines Fahrzeugs an.
+     *
+     * @param fahrzeuge Eine Liste von Fahrzeugen, aus denen ausgewählt werden kann.
+     * @return Das ausgewählte Fahrzeug oder ein neues Fahrzeug mit Standardwerten als Repräsentation eines Abbruchs.
+     */
     public Fahrzeug getData(ArrayList<Fahrzeug> fahrzeuge) {
         JComboBox<String> dropdown = new JComboBox<String>();
         for (Fahrzeug f : fahrzeuge) {
@@ -24,8 +34,8 @@ public class FahrzeugPopup {
                 if (fahrzeug.equals(ausgewaelt)) return f;
             }
         } else if (result == JOptionPane.OK_CANCEL_OPTION) {
-            return new Fahrzeug(-1,FahrzeugKategorie.ELW,FahrzeugArt.LKW,0);
+            return new Fahrzeug();
         }
-        return new Fahrzeug(0,FahrzeugKategorie.ELW,FahrzeugArt.LKW,0);
+        return new Fahrzeug();
     }
 }
