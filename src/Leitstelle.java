@@ -71,8 +71,8 @@ public class Leitstelle {
             einsatznummern.add(e.getEinsatzNummer());
         }
         Collections.sort(einsatznummern);
-        SelectEinsatzPopup selectEinsatzPopup = new SelectEinsatzPopup();
-        int selected = selectEinsatzPopup.getData(einsatznummern);
+        NummerAuswahlPopup einsatzAuswahlPopup = new NummerAuswahlPopup();
+        int selected = einsatzAuswahlPopup.getData(einsatznummern,"Einsatz auswahl", "Einsatznummer: ");
         for (Einsatz e : einsaetze) {
             if (e.getEinsatzNummer() == selected) {
                 return e;
@@ -105,8 +105,8 @@ public class Leitstelle {
 
     public void erkrankung(int personalnummer) {
         if (personalnummer == 0) {
-            PersonalPopup t = new PersonalPopup();
-            erkrankung(t.getData(wache.getActivePersonalnummern(), "Wer ist erkrankt?  "));
+            NummerAuswahlPopup t = new NummerAuswahlPopup();
+            erkrankung(t.getData(wache.getActivePersonalnummern(), "Krankmeldung","Wer ist erkrankt?  "));
 
         } else if (personalnummer == -1) {
             System.out.println("Kranksetzen abgebrochen");
@@ -117,8 +117,8 @@ public class Leitstelle {
 
     public void gesund(int personalnummer) {
         if (personalnummer == 0) {
-            PersonalPopup t = new PersonalPopup();
-            gesund(t.getData(wache.getKrankPersonalnummern(), "Wer ist gesund?  "));
+            NummerAuswahlPopup t = new NummerAuswahlPopup();
+            gesund(t.getData(wache.getKrankPersonalnummern(), "Gesundmeldung", "Wer ist gesund?  "));
 
         } else if (personalnummer == -1) {
             System.out.println("Aktivsetzen abgebrochen");
@@ -130,8 +130,8 @@ public class Leitstelle {
 
     public void urlaub(int personalnummer) {
         if (personalnummer == 0) {
-            PersonalPopup t = new PersonalPopup();
-            urlaub(t.getData(wache.getActivePersonalnummern(), "Wer geht in den Urlaub?  "));
+            NummerAuswahlPopup t = new NummerAuswahlPopup();
+            urlaub(t.getData(wache.getActivePersonalnummern(), "Urlaubsmeldung", "Wer geht in den Urlaub?  "));
 
         } else if (personalnummer == -1) {
             System.out.println("Beurlaubung abgebrochen");
@@ -143,8 +143,8 @@ public class Leitstelle {
 
     public void backToWork(int personalnummer) {
         if (personalnummer == 0) {
-            PersonalPopup t = new PersonalPopup();
-            backToWork(t.getData(wache.getUrlaubPersonalnummern(), "Wer ist aus dem Urlaub zurück?  "));
+            NummerAuswahlPopup t = new NummerAuswahlPopup();
+            backToWork(t.getData(wache.getUrlaubPersonalnummern(),"Uhrlaubsrückkehr", "Wer ist aus dem Urlaub zurück?  "));
 
         } else if (personalnummer == -1) {
             System.out.println("Aktivsetzen abgebrochen");
