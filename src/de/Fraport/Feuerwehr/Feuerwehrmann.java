@@ -6,7 +6,7 @@ import java.util.Random;
  * Klasse, die einen Feuerwehrmann repräsentiert.
  * Die Attribute geben ihre jeweilige bezeichnung an
  */
-public class Feuerwehrmann {
+public abstract class Feuerwehrmann {
     private int personalnummer;
 
     private Dienstgrad dienstgrad;
@@ -39,5 +39,35 @@ public class Feuerwehrmann {
      */
     public Dienstgrad getDienstgrad() {
         return dienstgrad;
+    }
+}
+
+/**
+ * Klasse, die einen Feuerwehrmann mit der Spezialisierung als LKW-Fahrer repräsentiert.
+ */
+class LkwFahrer extends Feuerwehrmann{
+
+    /**
+     * Konstruktor für die LkwFahrer-Klasse.
+     *
+     * @param personalnummer Die Personalnummer des LKW-Fahrers.
+     */
+    public LkwFahrer(int personalnummer) {
+        super(personalnummer);
+    }
+}
+
+/**
+ * Klasse, die einen Feuerwehrmann repräsentiert, der nur als PKW-Fahrer tätig ist.
+ */
+class PkwFahrer extends Feuerwehrmann{
+
+    /**
+     * Konstruktor für die PkwFahrer-Klasse.
+     *
+     * @param personalnummer Die Personalnummer des Feuerwehrmanns.
+     */
+    public PkwFahrer(int personalnummer) {
+        super(personalnummer);
     }
 }

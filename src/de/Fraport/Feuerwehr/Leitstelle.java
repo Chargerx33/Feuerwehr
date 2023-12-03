@@ -243,7 +243,7 @@ public class Leitstelle {
                     if (fahrzeug.getSitze() > e.getBenoetigteFeuerwehrleute()) {
                         benoetigteFeuerwehrleute = e.getBenoetigteFeuerwehrleute();
                     }
-                    ArrayList<Feuerwehrmann> besatzung = wache.generateBesatzung(benoetigteFeuerwehrleute, fahrzeug.getArt() == FahrzeugArt.LKW);
+                    ArrayList<Feuerwehrmann> besatzung = wache.generateBesatzung(benoetigteFeuerwehrleute, fahrzeug.getArt() == Fahrzeug.FahrzeugArt.LKW);
                     fahrzeug.aufsitzen(besatzung);
                     Dienstgrad dienstgrad = Dienstgrad.D_DIENST;
                     for (Feuerwehrmann f : besatzung) {
@@ -262,7 +262,7 @@ public class Leitstelle {
                     if (fahrzeug.getSitze() > e.getBenoetigteFeuerwehrleute()) {
                         benoetigteFeuerwehrleute = e.getBenoetigteFeuerwehrleute();
                     }
-                    ArrayList<Feuerwehrmann> besatzung = wache.generateBesatzung(benoetigteFeuerwehrleute, fahrzeug.getArt() == FahrzeugArt.LKW);
+                    ArrayList<Feuerwehrmann> besatzung = wache.generateBesatzung(benoetigteFeuerwehrleute, fahrzeug.getArt() == Fahrzeug.FahrzeugArt.LKW);
                     fahrzeug.aufsitzen(besatzung);
                     e.bedieneTlf(1);
                     e.bedieneFeuerwehrmann(besatzung.size());
@@ -274,7 +274,7 @@ public class Leitstelle {
                     if (fahrzeug.getSitze() > e.getBenoetigteFeuerwehrleute()) {
                         benoetigteFeuerwehrleute = e.getBenoetigteFeuerwehrleute();
                     }
-                    ArrayList<Feuerwehrmann> besatzung = wache.generateBesatzung(benoetigteFeuerwehrleute, fahrzeug.getArt() == FahrzeugArt.LKW);
+                    ArrayList<Feuerwehrmann> besatzung = wache.generateBesatzung(benoetigteFeuerwehrleute, fahrzeug.getArt() == Fahrzeug.FahrzeugArt.LKW);
                     fahrzeug.aufsitzen(besatzung);
                     e.bedieneDlk(1);
                     e.bedieneFeuerwehrmann(besatzung.size());
