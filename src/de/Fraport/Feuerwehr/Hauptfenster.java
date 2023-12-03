@@ -1,7 +1,20 @@
+package de.Fraport.Feuerwehr;
+
 import javax.swing.*;
 import java.awt.event.*;
 
-public class MainWindow extends JDialog {
+/**
+ * Die Klasse `Hauptfenster` repräsentiert das Hauptfenster der Leitstelle.
+ * Sie enthält Buttons für verschiedene Aktionen, um die Leitstellenfunktionen zu steuern.
+ *
+ * Die Klasse erbt von `JDialog` und wird mit einer Instanz der Leitstelle initialisiert.
+ * Das Aussehen des Hauptfensters wird durch Hauptfenster.form weiter beschrieben.
+ * Hauptfenster.form wurde durch mithilfe des Swing UI Designer von IntelliJ Ultimate erzeugt.
+ */
+public class Hauptfenster extends JDialog {
+    /**
+     * Die Referenz auf die Leitstelle, mit der dieses Hauptfenster verbunden ist.
+     */
     Leitstelle leitstelle;
     private JPanel contentPane;
     private JButton urlaubsmeldungButton;
@@ -18,11 +31,18 @@ public class MainWindow extends JDialog {
     private JTabbedPane tabbedPane1;
     private JLabel label;
 
-    public MainWindow(Leitstelle leitstelle) {
+    /**
+     * Konstruktor für das Hauptfenster der Leitstelle.
+     *
+     * @param leitstelle Die Instanz der Leitstelle, die dieses Hauptfenster steuert.
+     * @param titel Der Titel des Fensters
+     */
+    public Hauptfenster(Leitstelle leitstelle, String titel) {
         this.leitstelle = leitstelle;
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(urlaubsmeldungButton);
+        this.setTitle(titel);
 
 
 
@@ -104,38 +124,79 @@ public class MainWindow extends JDialog {
         });
         updateStatusDerWache();
     }
+
+    /**
+     * Aktualisiert die Anzeige des Status der Wache im GUI-Label.
+     * Hierbei wird zur formatierung des Texts HTML verwendet
+     */
     private void updateStatusDerWache() {
         label.setText("<html>" + leitstelle.statusDerWache().replaceAll("\n", "<br/>") + "</html");
     }
 
+    /**
+     * Behandelt den Klick auf den "Urlaubsmeldung" Button.
+     * Ruft die entsprechende Methode in der Leitstelle auf und aktualisiert den Status der Wache.
+     */
     private void onUrlaubsmeldung() {
         leitstelle.urlaub(0);
         updateStatusDerWache();
     }
 
+    /**
+     * Behandelt den Klick auf den "Urlaubsrückkehr" Button.
+     * Ruft die entsprechende Methode in der Leitstelle auf und aktualisiert den Status der Wache.
+     */
     private void onUrlaubsrueckkehr() {
         leitstelle.zureuckVomUrlaub(0);
         updateStatusDerWache();
     }
+
+    /**
+     * Behandelt den Klick auf den "Fahrzeug Wartung" Button.
+     * Ruft die entsprechende Methode in der Leitstelle auf und aktualisiert den Status der Wache.
+     */
     private void onFahrzeugWartung() {
         leitstelle.warteFahrzeug();
         updateStatusDerWache();
     }
+    /**
+     * Behandelt den Klick auf den "Fahrzeug Verfügbar" Button.
+     * Ruft die entsprechende Methode in der Leitstelle auf und aktualisiert den Status der Wache.
+     */
     private void onFahrzeugVerfuegbar() {
         leitstelle.reaktiviereFahrzeug();
         updateStatusDerWache();
     }
+
+    /**
+     * Behandelt den Klick auf den "Erkrankung" Button.
+     * Ruft die entsprechende Methode in der Leitstelle auf und aktualisiert den Status der Wache.
+     */
     private void onErkrankung(){
         leitstelle.erkrankung(0);
         updateStatusDerWache();
     }
+    /**
+     * Behandelt den Klick auf den "Gesundmeldung" Button.
+     * Ruft die entsprechende Methode in der Leitstelle auf und aktualisiert den Status der Wache.
+     */
     private void onGesund(){
         leitstelle.gesund(0);
         updateStatusDerWache();
     }
+
+    /**
+     * Behandelt den Klick auf den "Neuer Einsatz" Button.
+     * Ruft die entsprechende Methode in der Leitstelle auf.
+     */
     private void onNeuerEinsatz(){
         leitstelle.neuerEinsatz();
     }
+
+    /**
+     * Behandelt den Klick auf den "Einsatz Anfahren" Button.
+     * Ruft die entsprechende Methode in der Leitstelle auf und zeigt eine Fehlermeldung, falls nicht genügend Einsatzmittel vorhanden sind.
+     */
     private void onEinsatzAnfahren(){
         boolean angefahren =  leitstelle.teamZuEinsatz();
         if (!angefahren) {
@@ -144,6 +205,10 @@ public class MainWindow extends JDialog {
         }
         updateStatusDerWache();
     }
+    /**
+     * Behandelt den Klick auf den "Einsatz Info" Button.
+     * Ruft die entsprechende Methode in der Leitstelle auf und zeigt die Informationen in einem Dialogfenster an.
+     */
     private void onEinsatzInfo(){
         String text = leitstelle.einsatzInfo();
         JFrame frame = new JFrame();
@@ -152,11 +217,30 @@ public class MainWindow extends JDialog {
                 "Info zum ausgewählten Einsatz",
                 JOptionPane.PLAIN_MESSAGE);
     }
+
+    /**
+     * Behandelt den Klick auf den "Einsatz Beenden" Button.
+     * Ruft die entsprechende Methode in der Leitstelle auf und aktualisiert den Status der Wache.
+     */
     private void onEinsatzEnde(){
         leitstelle.beendeEinsatz();
         updateStatusDerWache();
     }
+    /**
+     * Behandelt den Klick auf den "Programm Beenden" Button.
+     * Überprüft, ob das Beenden des Programms möglich ist, und zeigt ggf. eine Fehlermeldung an.
+     * Schließt das Hauptfenster, wenn das Beenden möglich ist.
+     */
     private void onExit(){
-        dispose();
+        if (leitstelle.programBeendenMoeglich()) {
+            dispose();
+        }
+        else {
+            JFrame frame = new JFrame();
+            JOptionPane.showMessageDialog(frame,
+                    "Das beenden des Programs ist nicht möglich, da noch mindestens ein Einsatz offen ist.",
+                    "Beenden nicht möglich!",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
 }

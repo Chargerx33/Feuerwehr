@@ -1,3 +1,5 @@
+package de.Fraport.Feuerwehr;
+
 /**
  * Klasse, die ein Mannschaftstransportfahrzeug (MTF) repräsentiert und von der Klasse Fahrzeug erbt.
  * die Klasse hat zusätzlich das Attribut baujahr, welches das Baujahr des MTFs angibt

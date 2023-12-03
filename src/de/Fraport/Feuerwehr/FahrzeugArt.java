@@ -1,3 +1,5 @@
+package de.Fraport.Feuerwehr;
+
 /**
  * Enumeration, die die möglichen Fahrzeugarten repräsentiert.
  * UNDEFINED gibt einen Fehler oder Abbruch an.

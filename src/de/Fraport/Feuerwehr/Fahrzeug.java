@@ -1,3 +1,5 @@
+package de.Fraport.Feuerwehr;
+
 import java.util.ArrayList;
 /**
  * Meistens Klasse, die ein allgemeines Fahrzeug repräsentiert.

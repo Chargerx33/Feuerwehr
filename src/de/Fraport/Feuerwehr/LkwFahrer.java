@@ -1,3 +1,5 @@
+package de.Fraport.Feuerwehr;
+
 /**
  * Klasse, die einen Feuerwehrmann mit der Spezialisierung als LKW-Fahrer repräsentiert.
  */
