@@ -1,3 +1,5 @@
+package de.Fraport.Feuerwehr;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;

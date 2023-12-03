@@ -1,3 +1,5 @@
+package de.Fraport.Feuerwehr;
+
 /**
  * Klasse, die einen Einsatzleitwagen (ELW) repräsentiert und von der Klasse Fahrzeug erbt.
  * die Klasse hat zusätzlich das Attribut dienstgrad, welches im Einsatz den höchsten Dienstgrad der auf dem Fahrzeug befindlichen Feuerwehrleute angibt

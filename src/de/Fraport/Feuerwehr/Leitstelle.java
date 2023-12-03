@@ -1,3 +1,5 @@
+package de.Fraport.Feuerwehr;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -27,23 +29,23 @@ public class Leitstelle {
             } else {
                 feuerwehrmann = new PkwFahrer(i);
             }
-            wache.addPersonal(feuerwehrmann);
+            wache.newPersonal(feuerwehrmann);
         }
         for (int i = 1; i <= 4; i++) {
             Fahrzeug elw = new ELW(i);
-            wache.addFahrzeug(elw);
+            wache.newFahrzeug(elw);
         }
         for (int i = 1; i <= 5; i++) {
             Fahrzeug tlf = new TLF(i);
-            wache.addFahrzeug(tlf);
+            wache.newFahrzeug(tlf);
         }
         for (int i = 1; i <= 4; i++) {
             Fahrzeug mtf = new MTF(i, 2004);
-            wache.addFahrzeug(mtf);
+            wache.newFahrzeug(mtf);
         }
         for (int i = 1; i <= 5; i++) {
             Fahrzeug dlk = new DLK(i, 23);
-            wache.addFahrzeug(dlk);
+            wache.newFahrzeug(dlk);
         }
     }
     /**
@@ -305,6 +307,15 @@ public class Leitstelle {
         return false;
 
 
+    }
+
+    /**
+     * Überprüft, ob das Beenden des Programms möglich ist, indem geprüft wird, ob keine Einsätze mehr offen sind.
+     *
+     * @return true, wenn das Programm beendet werden kann (sprich keine offenen Einsätze), andernfalls false.
+     */
+    public boolean programBeendenMoeglich(){
+        return einsaetze.isEmpty();
     }
 }
 

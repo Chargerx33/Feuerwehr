@@ -1,3 +1,5 @@
+package de.Fraport.Feuerwehr;
+
 /**
  * Klasse, die einen Feuerwehrmann repräsentiert, der nur als PKW-Fahrer tätig ist.
  */

@@ -1,6 +1,14 @@
+package de.Fraport.Feuerwehr;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Die Klasse Wache repräsentiert eine Feuerwache mit verschiedenen Ressourcen
+ * wie einer Fahrzeughalle, einer Wartungshalle und Feuerwehrleuten, welche in LKW-Fahrer und Pkw-Fahrer aufgeteilt werden
+ * Fahrzeuge, welche nicht an anderer Stelle im Programm verwendet werden, dennoch nicht verwendet werden, werden in wartungshalle gespeichert
+ * Feuerwerhrleute, welche krank oder im Urlaub sind, werden veralgemeinert als Feuerwehrmann in der jeweiligen ArrayListe gespeichert
+ */
 public class Wache {
     private ArrayList<Fahrzeug> fahrzeughalle = new ArrayList<Fahrzeug>();
     private ArrayList<Fahrzeug> wartungshalle = new ArrayList<Fahrzeug>();
@@ -10,21 +18,38 @@ public class Wache {
     private ArrayList<Feuerwehrmann> krank = new ArrayList<Feuerwehrmann>();
     private ArrayList<Feuerwehrmann> urlaub = new ArrayList<Feuerwehrmann>();
 
-    public void addFahrzeug(Fahrzeug fahrzeug) {
+    /**
+     * Fügt ein Fahrzeug zur Fahrzeughalle hinzu.
+     * darf nur zum Hinzufügen neuer fahrzeuge genutzt werden verwendet werden.
+     * @param fahrzeug Das hinzuzufügende Fahrzeug.
+     */
+    public void newFahrzeug(Fahrzeug fahrzeug) {
         fahrzeughalle.add(fahrzeug);
     }
 
-    public void addPersonal(Feuerwehrmann feuerwehrmann) {
+    /**
+     * Fügt einen Feuerwehrmann zur verfügbaren Besatzung hinzu, je nach Qualifikation (PkwFahrer oder LkwFahrer) wird der Feuerwehrmann in die Jeweilige liste gespeichert.
+     *  darf nur zum Hinzufügen neuer Feuerwehrleute genutzt werden
+     * @param feuerwehrmann Der hinzuzufügende Feuerwehrmann.
+     */
+    public void newPersonal(Feuerwehrmann feuerwehrmann) {
         if (feuerwehrmann instanceof LkwFahrer) {
             personalLkwFahrer.add((LkwFahrer) feuerwehrmann);
         } else {
             personalPkwFahrer.add((PkwFahrer) feuerwehrmann);
         }
     }
+
+    /**
+     * Gibt den aktuellen Status der Wache aus, darunter verfügbare Fahrzeuge,
+     * aktive Feuerwehrleute mit zusatz der verfügbaren LKW-Fahrer und mit den vorhandenen Mitteln noch bedienbare Einsätzarten.
+     *
+     * @return Der Status der Wache als String zur ausgabe in einem Userinterface.
+     */
     public String statusDerWache(){
         StringBuilder status = new StringBuilder();
         status.append("Verfügbare LKW fahrer: " + personalLkwFahrer.size() + "\n");
-        status.append("Verfügbare Feurerwehrmänner: " + (personalPkwFahrer.size() + personalLkwFahrer.size()) + "(Inkl. LKW fahrer)\n" );
+        status.append("Verfügbare Feurerwehrmänner: " + (personalPkwFahrer.size() + personalLkwFahrer.size()) + " (Inkl. LKW fahrer)\n" );
         int[] verfuegbareFahrzeuge = verfuegbareFahrzeuge();
         status.append("Verfügbare ELW: " + verfuegbareFahrzeuge[0] + "\n");
         status.append("Verfügbaer TLF: " + verfuegbareFahrzeuge[1] + "\n");
@@ -34,11 +59,19 @@ public class Wache {
         for(Einsatzart einsatzArt: moeglicheEinsatzArten()){
             status.append(einsatzArt.toString() + ", ");
         }
-
-        System.out.println(status.toString());
-        System.out.println(status);
         return status.toString();
     }
+
+    /**
+     * Ermittelt die Anzahl verfügbarer Fahrzeuge nach Kategorien.
+     *
+     * @return Ein Array vom Typ Integer mit der Anzahl verfügbarer Fahrzeuge pro Kategorie.
+     * dabei Stellen die Indizes die Anzahl der folgenden Fahrzeugkategorie dar:
+     * [0] -> Verfügbare ELWs
+     * [1] -> Verfügbare TLFs
+     * [2] -> Verfügbare DLKs
+     * [3] -> Verfügbare MTFs
+     */
     public int[] verfuegbareFahrzeuge() {
         int[]verfuegbar = new int[4];
         verfuegbar[0] = verfuegbar[1] = verfuegbar[2] = verfuegbar[3] = 0;
@@ -60,6 +93,12 @@ public class Wache {
         }
         return verfuegbar;
     }
+
+    /**
+     * Ermittelt die Einsatzarten, die von der Wache mit den noch verfügbaren Mitteln bewältigt werden können.
+     *
+     * @return Eine Liste der möglichen Einsatzarten.
+     */
     public ArrayList<Einsatzart> moeglicheEinsatzArten(){
         ArrayList<Einsatzart> arten = new ArrayList<Einsatzart>();
         int[] verfuegbareFahrzeuge = verfuegbareFahrzeuge();
@@ -92,7 +131,13 @@ public class Wache {
         return moeglich;
     }
 
-
+    /**
+     * Sucht einen Feuerwehrmann in der aktiven Liste (personalLkwFahrer und personalPkwFahrer) basierend auf seiner Personalnummer.
+     *
+     * @param personalnummer Die Personalnummer des gesuchten Feuerwehrmanns.
+     * @return Der gefundene Feuerwehrmann oder null, wenn kein Feuerwehrmann mit der angegebenen Personalnummer gefunden wurde.
+     * Es empfiehlt sich, durch prüfungen an anderer Stelle, zu vermeiden ein return von null zu erhalten.
+     */
     public Feuerwehrmann getFromActiveByPersonalnummer(int personalnummer) {
 
         for (Feuerwehrmann feuerwehrmann : personalLkwFahrer) {
@@ -112,6 +157,13 @@ public class Wache {
         return null;
     } //Kann NULL zurückgeben
 
+    /**
+     * Sucht einen Feuerwehrmann in der Krankenliste (krank) basierend auf seiner Personalnummer.
+     *
+     * @param personalnummer Die Personalnummer des gesuchten Feuerwehrmanns.
+     * @return Der gefundene Feuerwehrmann oder null, wenn kein Feuerwehrmann mit der angegebenen Personalnummer in der Krankenliste existiert.
+     * Es empfiehlt sich, durch prüfungen an anderer Stelle, zu vermeiden ein return von null zu erhalten.
+     */
     public Feuerwehrmann getFromKrankByPersonalnummer(int personalnummer) {
         for (Feuerwehrmann feuerwehrmann : krank) {
             if (feuerwehrmann.getPersonalnummer() == personalnummer) {
@@ -122,6 +174,13 @@ public class Wache {
         return null;
     } //Kann NULL zurückgeben
 
+    /**
+     * Sucht einen Feuerwehrmann in der Urlaubsliste (urlaub) basierend auf seiner Personalnummer.
+     *
+     * @param personalnummer Die Personalnummer des gesuchten Feuerwehrmanns.
+     * @return Der gefundene Feuerwehrmann oder null, wenn kein Feuerwehrmann mit der angegebenen Personalnummer in der Urlaubsliste existiert.
+     * Es empfiehlt sich, durch prüfungen an anderer Stelle, zu vermeiden ein return von null zu erhalten.
+     */
     public Feuerwehrmann getFromUrlaubByPersonalnummer(int personalnummer) {
 
         for (Feuerwehrmann feuerwehrmann : urlaub) {
@@ -133,17 +192,33 @@ public class Wache {
         return null;
     } //Kann NULL zurückgeben
 
+    /**
+     * Gibt eine Liste aller Fahrzeuge in der Fahrzeughalle zurück.
+     *
+     * @return Eine ArrayList von Fahrzeugen, die sich in der Fahrzeughalle befinden.
+     */
     public ArrayList<Fahrzeug> getFahrzeugeInFahrzeughalle() {
         ArrayList<Fahrzeug> fahrzeuge = new ArrayList<Fahrzeug>();
         fahrzeuge.addAll(fahrzeughalle);
         return fahrzeuge;
     }
+
+    /**
+     * Gibt eine Liste aller Fahrzeuge in der Wartungshalle zurück.
+     *
+     * @return Eine ArrayList von Fahrzeugen, die sich in der Wartungshalle befinden.
+     */
     public ArrayList<Fahrzeug> getFahrzeugeInWartungshalle() {
         ArrayList<Fahrzeug> fahrzeuge = new ArrayList<Fahrzeug>();
         fahrzeuge.addAll(wartungshalle);
         return fahrzeuge;
     }
 
+    /**
+     * Gibt eine sortierte Liste vom Typ Integer der Personalnummern aller aktiven Feuerwehrleute zurück.
+     *
+     * @return Eine ArrayList vom Typ Integer, die die Personalnummern der aktiven Feuerwehrleute enthält.
+     */
     public ArrayList<Integer> getActivePersonalnummern() {
         ArrayList<Integer> personalnummern = new ArrayList<Integer>();
         for (Feuerwehrmann f : personalPkwFahrer) {
@@ -156,6 +231,11 @@ public class Wache {
         return personalnummern;
     }
 
+    /**
+     * Gibt eine sortierte Liste vom Typ Integer der Personalnummern aller kranken Feuerwehrleute zurück.
+     *
+     * @return Eine ArrayList vom Typ Integer, die die Personalnummern der kranken Feuerwehrleute enthält.
+     */
     public ArrayList<Integer> getKrankPersonalnummern() {
         ArrayList<Integer> personalnummern = new ArrayList<Integer>();
         for (Feuerwehrmann f : krank) {
@@ -165,6 +245,11 @@ public class Wache {
         return personalnummern;
     }
 
+    /**
+     * Gibt eine sortierte Liste vom Typ Integer der Personalnummern aller Feuerwehrleute zurück, die im Urlaub sind.
+     *
+     * @return Eine ArrayList vom Typ Integer, die die Personalnummern der Feuerwehrleute enthält, die im Urlaub sind.
+     */
     public ArrayList<Integer> getUrlaubPersonalnummern() {
         ArrayList<Integer> personalnummern = new ArrayList<Integer>();
         for (Feuerwehrmann f : urlaub) {
@@ -174,17 +259,33 @@ public class Wache {
         return personalnummern;
     }
 
+    /**
+     * Verlegt ein Fahrzeug von der Wartungshalle in die Fahrzeughalle
+     * und ruft folgend eine Funktion zur Sortierung beider Hallen auf
+     *
+     * @param fahrzeug Das zu verlegende Fahrzeug.
+     */
     public void fahreInFahrzeughalle(Fahrzeug fahrzeug) {
         wartungshalle.remove(fahrzeug);
         fahrzeughalle.add(fahrzeug);
         sortiereHallen();
     }
 
+    /**
+     * Verlegt ein Fahrzeug von der Fahrzeughalle in die Wartungshalle
+     * und ruft folgend eine Funktion zur Sortierung beider Hallen auf
+     *
+     * @param fahrzeug Das zu verlegende Fahrzeug.
+     */
     public void fahreInWartungshalle(Fahrzeug fahrzeug) {
         fahrzeughalle.remove(fahrzeug);
         wartungshalle.add(fahrzeug);
         sortiereHallen();
     }
+
+    /**
+     * Sortiert die Fahrzeughalle und die Wartungshalle erst nach Fahrzeugnummer und dann nach Kategorie.
+     */
     private void sortiereHallen(){
         //https://stackoverflow.com/questions/2784514/sort-arraylist-of-custom-objects-by-property
         //Hab das hier her, keine ahnung wieso das funktioniert, aber es funktioniert
@@ -194,63 +295,121 @@ public class Wache {
         wartungshalle.sort(((o1, o2) -> o1.getFahrzeugKategorie().compareTo(o2.getFahrzeugKategorie())));
     }
 
-
-    private void addToActive(Feuerwehrmann f) {
-        if (f instanceof LkwFahrer) {
-            personalLkwFahrer.add((LkwFahrer) f);
+    /**
+     * Fügt einen Feuerwehrmann zur aktiven Besatzung hinzu, je nach Typ (PkwFahrer oder LkwFahrer) wird der Feuerwehrmann auf der jeweiligen Liste gespeichert.
+     *
+     * @param feuerwehrmann Der hinzuzufügende Feuerwehrmann.
+     */
+    private void addToActive(Feuerwehrmann feuerwehrmann) {
+        if (feuerwehrmann instanceof LkwFahrer) {
+            personalLkwFahrer.add((LkwFahrer) feuerwehrmann);
         } else {
-            personalPkwFahrer.add((PkwFahrer) f);
+            personalPkwFahrer.add((PkwFahrer) feuerwehrmann);
         }
     }
 
-    private void removeFromActive(Feuerwehrmann f) {
-        if (f instanceof LkwFahrer) {
-            personalLkwFahrer.remove(f);
+    /**
+     * Entfernt einen Feuerwehrmann aus der aktiven Besatzung, je nach Typ (PkwFahrer oder LkwFahrer) wird die Löschung auf der zugehörigen Liste gelöscht.
+     *
+     * @param feuerwehrmann Der zu entfernende Feuerwehrmann.
+     */
+    private void removeFromActive(Feuerwehrmann feuerwehrmann) {
+        if (feuerwehrmann instanceof LkwFahrer) {
+            personalLkwFahrer.remove(feuerwehrmann);
         } else {
-            personalPkwFahrer.remove(f);
+            personalPkwFahrer.remove(feuerwehrmann);
         }
     }
 
-    private void addToKrank(Feuerwehrmann f) {
-        krank.add(f);
+    /**
+     * Fügt einen Feuerwehrmann zur Liste der Erkrankten hinzu.
+     *
+     * @param feuerwehrmann Der hinzuzufügende Feuerwehrmann.
+     */
+    private void addToKrank(Feuerwehrmann feuerwehrmann) {
+        krank.add(feuerwehrmann);
     }
 
-    private void removeFromKrank(Feuerwehrmann f) {
-        krank.remove(f);
+    /**
+     * Entfernt einen Feuerwehrmann aus der Liste der Erkrankten.
+     *
+     * @param feuerwehrmann Der zu entfernende Feuerwehrmann.
+     */
+    private void removeFromKrank(Feuerwehrmann feuerwehrmann) {
+        krank.remove(feuerwehrmann);
     }
 
-    private void addToUrlaub(Feuerwehrmann f) {
-        urlaub.add(f);
+    /**
+     * Fügt einen Feuerwehrmann zur Liste der Personen im Urlaub hinzu.
+     *
+     * @param feuerwehrmann Der hinzuzufügende Feuerwehrmann.
+     */
+    private void addToUrlaub(Feuerwehrmann feuerwehrmann) {
+        urlaub.add(feuerwehrmann);
     }
 
-    private void removeFromUrlaub(Feuerwehrmann f) {
-        urlaub.remove(f);
+    /**
+     * Entfernt einen Feuerwehrmann aus der Liste der Personen im Urlaub.
+     *
+     * @param feuerwehrmann Der zu entfernende Feuerwehrmann.
+     */
+    private void removeFromUrlaub(Feuerwehrmann feuerwehrmann) {
+        urlaub.remove(feuerwehrmann);
     }
 
+    /**
+     * Setzt einen Feuerwehrmann auf krank, indem der Feuerwehrmann von der aktiven Besatzung auf die Krankenliste verschoben wird.
+     *
+     * @param personalnummer Die Personalnummer des Feuerwehrmanns.
+     */
     public void makeKrank(int personalnummer) {
         Feuerwehrmann f = getFromActiveByPersonalnummer(personalnummer);
         removeFromActive(f);
         addToKrank(f);
     }
 
+    /**
+     * Meldet einen Feuerwehrmann als wieder Gesund, indem der Feuerwehrmann von der Krankenliste in die aktive Besatzung verschoben wird.
+     *
+     * @param personalnummer Die Personalnummer des Feuerwehrmanns.
+     */
     public void makeGesund(int personalnummer) {
         Feuerwehrmann f = getFromKrankByPersonalnummer(personalnummer);
         removeFromKrank(f);
         addToActive(f);
     }
 
+    /**
+     * Versetzt den Feuerwehrmann mit der angegebenen Personalnummer in den Urlaubsstatus, indem er aus der Liste der aktiven Feuerwehrleute entfernt und zur Urlaubsliste hinzugefügt wird.
+     *
+     * @param personalnummer Die Personalnummer des Feuerwehrmanns, der in den Urlaubsstatus versetzt werden soll.
+     */
     public void toUrlaub(int personalnummer) {
         Feuerwehrmann f = getFromActiveByPersonalnummer(personalnummer);
         removeFromActive(f);
         addToUrlaub(f);
     }
 
+    /**
+     * Holt den Feuerwehrmann mit der angegebenen Personalnummer aus dem Urlaubsstatus zurück, indem er aus der Urlaubsliste entfernt und zur Liste der aktiven Feuerwehrleute hinzugefügt wird .
+     *
+     * @param personalnummer Die Personalnummer des Feuerwehrmanns, der aus dem Urlaubsstatus zurückgeholt werden soll.
+     */
     public void fromUrlaub(int personalnummer) {
         Feuerwehrmann f = getFromUrlaubByPersonalnummer(personalnummer);
         removeFromUrlaub(f);
         addToActive(f);
     }
 
+    /**
+     * Generiert eine Fahrzeugbesatzung für einen Einsatz.
+     *
+     * @param anzahlPersonen Die Anzahl der Feuerwehrleute, die in der Besatzung benötigt werden.
+     * @param lkw            Gibt an, ob ein Lkw-Fahrer in der Besatzung enthalten sein muss.
+     * @return Eine ArrayList von Feuerwehrleuten, die die generierte Besatzung repräsentiert.
+     *         Kann null zurückgeben, wenn nicht genügend Personal vorhanden ist.
+     *         Ein rückgabewert von null sollte durch Prüfungen an anderer Stelle verhindert werden
+     */
     public ArrayList<Feuerwehrmann> generateBesatzung(int anzahlPersonen, boolean lkw) {
         ArrayList<Feuerwehrmann> besatzung = new ArrayList<Feuerwehrmann>();
         if (lkw) {
@@ -277,8 +436,12 @@ public class Wache {
     } //Kann NULL zurückgeben
 
     /**
-     * @param fahrzeugKategorie gibt an, welche art von vahrzeug aus der Fahrzeighalle geholt werden soll
-     * @return Gibt ein als passend erkanntes Objekt vom typ Fahrzeug zurück
+     * Holt ein Fahrzeug aus der Fahrzeughalle für einen Einsatz basierend auf der Fahrzeugkategorie.
+     *
+     * @param fahrzeugKategorie Die Fahrzeugkategorie, für die ein Fahrzeug benötigt wird.
+     * @return Ein passendes Fahrzeug-Objekt, das aus der Fahrzeughalle geholt wurde.
+     *         Kann null zurückgeben, wenn die Sonne zwischen Mond und Erde steht ;).
+     *         Die Rückgabe von null kann in der Theorie nicht stattfinden, da alle möglichen Werte der übergebenen Fahrzeugkategorie mit einem eigenen return enden, wird jedoch vom Compiler verlangt >:(.
      */
     public Fahrzeug fahrzeugZuEinsatz(Fahrzeugkategorie fahrzeugKategorie) {
         switch (fahrzeugKategorie) {
@@ -319,7 +482,9 @@ public class Wache {
     }
 
     /**
-     * @param angekommeneFahrzeuge erhält eine Fahrzeugliste
+     * Registriert die Rückkehr von Fahrzeugen und deren Besatzung zur Wache und sortiert diese in die jeweiligen Listen ein.
+     *
+     * @param angekommeneFahrzeuge Die Liste von Fahrzeugen, die von einem Einsatz zurückgekehrt sind.
      */
     public void rueckkehr(ArrayList<Fahrzeug> angekommeneFahrzeuge){
         for (Fahrzeug fahrzeug:angekommeneFahrzeuge) {
