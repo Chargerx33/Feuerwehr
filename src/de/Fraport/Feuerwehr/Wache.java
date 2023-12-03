@@ -1,5 +1,8 @@
 package de.Fraport.Feuerwehr;
 
+import de.Fraport.Feuerwehr.Enumerations.Einsatzart;
+import de.Fraport.Feuerwehr.Enumerations.Fahrzeugkategorie;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -483,6 +486,7 @@ public class Wache {
 
     /**
      * Registriert die Rückkehr von Fahrzeugen und deren Besatzung zur Wache und sortiert diese in die jeweiligen Listen ein.
+     * Anschließend werden Fahrzeughalle und Wartungshalle sortiert.
      *
      * @param angekommeneFahrzeuge Die Liste von Fahrzeugen, die von einem Einsatz zurückgekehrt sind.
      */
@@ -495,5 +499,6 @@ public class Wache {
             }
         }
         fahrzeughalle.addAll(angekommeneFahrzeuge);
+        sortiereHallen();
     }
 }

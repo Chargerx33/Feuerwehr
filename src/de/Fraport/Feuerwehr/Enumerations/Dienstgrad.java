@@ -1,4 +1,4 @@
-package de.Fraport.Feuerwehr;
+package de.Fraport.Feuerwehr.Enumerations;
 
 /**
  * Die Enumeration "Dienstgrad" gibt den Dienstgrad eines Feuerwehrmanns oder ELWs an.

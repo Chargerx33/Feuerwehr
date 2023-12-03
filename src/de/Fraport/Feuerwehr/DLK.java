@@ -1,5 +1,8 @@
 package de.Fraport.Feuerwehr;
 
+import de.Fraport.Feuerwehr.Enumerations.FahrzeugArt;
+import de.Fraport.Feuerwehr.Enumerations.Fahrzeugkategorie;
+
 /**
  * Klasse, die eine Drehleiter mit Korb (DLK) repräsentiert und von der Klasse Fahrzeug erbt.
  * die Klasse hat zusätzlich das Attribut hoehe, welches die maximale Einsatzhöhe der DLK angibt
@@ -14,7 +17,7 @@ public class DLK/*Drehleiter (mit Korb)*/ extends Fahrzeug {
      * @param hoehe Die Höhe der Drehleiter mit Korb.
      */
     public DLK(int fahrzeugnummer, int hoehe) {
-        super(fahrzeugnummer, Fahrzeugkategorie.DLK,FahrzeugArt.LKW,2);
+        super(fahrzeugnummer, Fahrzeugkategorie.DLK, FahrzeugArt.LKW,2);
         this.hoehe = hoehe;
 
     }
