@@ -1,5 +1,7 @@
 package de.Fraport.Feuerwehr;
 
+import de.Fraport.Feuerwehr.Enumerations.Einsatzart;
+
 import java.util.ArrayList;
 
 /**

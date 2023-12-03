@@ -1,4 +1,4 @@
-package de.Fraport.Feuerwehr;
+package de.Fraport.Feuerwehr.UI;
 
 import javax.swing.*;
 import java.awt.*;

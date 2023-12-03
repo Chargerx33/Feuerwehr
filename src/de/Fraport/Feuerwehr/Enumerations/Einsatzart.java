@@ -1,4 +1,4 @@
-package de.Fraport.Feuerwehr;
+package de.Fraport.Feuerwehr.Enumerations;
 
 /**
  * Enumeration, die die möglichen Einsatzarten repräsentiert.

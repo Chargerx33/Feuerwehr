@@ -1,5 +1,8 @@
 package de.Fraport.Feuerwehr;
 
+import de.Fraport.Feuerwehr.Enumerations.FahrzeugArt;
+import de.Fraport.Feuerwehr.Enumerations.Fahrzeugkategorie;
+
 import java.util.Random;
 
 /**

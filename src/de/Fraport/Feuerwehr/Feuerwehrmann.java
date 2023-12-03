@@ -1,5 +1,7 @@
 package de.Fraport.Feuerwehr;
 
+import de.Fraport.Feuerwehr.Enumerations.Dienstgrad;
+
 import java.util.Random;
 
 /**
