@@ -49,7 +49,7 @@ public class Wache {
     public String statusDerWache(){
         StringBuilder status = new StringBuilder();
         status.append("Verfügbare LKW fahrer: " + personalLkwFahrer.size() + "\n");
-        status.append("Verfügbare Feurerwehrmänner: " + (personalPkwFahrer.size() + personalLkwFahrer.size()) + "(Inkl. LKW fahrer)\n" );
+        status.append("Verfügbare Feurerwehrmänner: " + (personalPkwFahrer.size() + personalLkwFahrer.size()) + " (Inkl. LKW fahrer)\n" );
         int[] verfuegbareFahrzeuge = verfuegbareFahrzeuge();
         status.append("Verfügbare ELW: " + verfuegbareFahrzeuge[0] + "\n");
         status.append("Verfügbaer TLF: " + verfuegbareFahrzeuge[1] + "\n");
