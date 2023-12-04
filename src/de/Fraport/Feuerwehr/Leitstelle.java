@@ -2,7 +2,6 @@ package de.Fraport.Feuerwehr;
 
 import de.Fraport.Feuerwehr.Enumerations.Dienstgrad;
 import de.Fraport.Feuerwehr.Enumerations.Einsatzart;
-import de.Fraport.Feuerwehr.Enumerations.FahrzeugArt;
 import de.Fraport.Feuerwehr.Enumerations.Fahrzeugkategorie;
 import de.Fraport.Feuerwehr.UI.EinsatzartPopup;
 import de.Fraport.Feuerwehr.UI.FahrzeugPopup;
@@ -251,7 +250,7 @@ public class Leitstelle {
                     if (fahrzeug.getSitze() > e.getBenoetigteFeuerwehrleute()) {
                         benoetigteFeuerwehrleute = e.getBenoetigteFeuerwehrleute();
                     }
-                    ArrayList<Feuerwehrmann> besatzung = wache.generateBesatzung(benoetigteFeuerwehrleute, fahrzeug.getArt() == FahrzeugArt.LKW);
+                    ArrayList<Feuerwehrmann> besatzung = wache.generateBesatzung(benoetigteFeuerwehrleute, fahrzeug.getArt() == Fahrzeug.FahrzeugArt.LKW);
                     fahrzeug.aufsitzen(besatzung);
                     Dienstgrad dienstgrad = Dienstgrad.D_DIENST;
                     for (Feuerwehrmann f : besatzung) {
@@ -270,7 +269,7 @@ public class Leitstelle {
                     if (fahrzeug.getSitze() > e.getBenoetigteFeuerwehrleute()) {
                         benoetigteFeuerwehrleute = e.getBenoetigteFeuerwehrleute();
                     }
-                    ArrayList<Feuerwehrmann> besatzung = wache.generateBesatzung(benoetigteFeuerwehrleute, fahrzeug.getArt() == FahrzeugArt.LKW);
+                    ArrayList<Feuerwehrmann> besatzung = wache.generateBesatzung(benoetigteFeuerwehrleute, fahrzeug.getArt() == Fahrzeug.FahrzeugArt.LKW);
                     fahrzeug.aufsitzen(besatzung);
                     e.bedieneTlf(1);
                     e.bedieneFeuerwehrmann(besatzung.size());
@@ -282,7 +281,7 @@ public class Leitstelle {
                     if (fahrzeug.getSitze() > e.getBenoetigteFeuerwehrleute()) {
                         benoetigteFeuerwehrleute = e.getBenoetigteFeuerwehrleute();
                     }
-                    ArrayList<Feuerwehrmann> besatzung = wache.generateBesatzung(benoetigteFeuerwehrleute, fahrzeug.getArt() == FahrzeugArt.LKW);
+                    ArrayList<Feuerwehrmann> besatzung = wache.generateBesatzung(benoetigteFeuerwehrleute, fahrzeug.getArt() == Fahrzeug.FahrzeugArt.LKW);
                     fahrzeug.aufsitzen(besatzung);
                     e.bedieneDlk(1);
                     e.bedieneFeuerwehrmann(besatzung.size());
