@@ -33,6 +33,6 @@ public class NummerAuswahlPopup {
         } else if (result == JOptionPane.OK_CANCEL_OPTION) {
             return -1;
         }
-        return 0;
+        return -1;
     }
 }

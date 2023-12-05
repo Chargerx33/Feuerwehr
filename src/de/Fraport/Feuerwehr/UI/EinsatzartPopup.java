@@ -9,7 +9,9 @@ public class EinsatzartPopup {
     public Einsatzart getData() {
         JComboBox<Einsatzart> dropdown = new JComboBox<Einsatzart>();
         for (Einsatzart e : Einsatzart.values()) {
-            dropdown.addItem(e);
+            if (e != Einsatzart.UNDEFINED) {
+                dropdown.addItem(e);
+            }
         }
 
         JPanel panel = new JPanel(new GridLayout(0, 2));

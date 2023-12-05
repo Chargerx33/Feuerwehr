@@ -21,6 +21,7 @@ public class Main {
 
         //für Debugging zum anhalten nach einem Programmdurchlauf
         System.out.println("Program beendet");
+        System.exit(0);
     }
 
 }
