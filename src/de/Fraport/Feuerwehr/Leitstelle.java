@@ -98,6 +98,9 @@ public class Leitstelle {
         Collections.sort(einsatznummern);
         NummerAuswahlPopup einsatzAuswahlPopup = new NummerAuswahlPopup();
         int selected = einsatzAuswahlPopup.getData(einsatznummern,"Einsatz auswahl", "Einsatznummer: ");
+        if (selected == -1) {
+            return new Einsatz(0,Einsatzart.UNDEFINED);
+        }
         for (Einsatz e : einsaetze) {
             if (e.getEinsatznummer() == selected) {
                 return e;
@@ -233,6 +236,9 @@ public class Leitstelle {
      */
     public boolean teamZuEinsatz() {
         Einsatz e = selectEinsatz();
+        if (e.getEinsatznummer() == 0) {
+            return true;
+        }
         if (wache.moeglicheEinsatzArten().contains(e.getEinsatzArt())) {
 
 
