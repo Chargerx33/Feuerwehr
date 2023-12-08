@@ -7,7 +7,7 @@ public class Easteregg {
         try {
             java.awt.Desktop.getDesktop().browse(URI.create("https://www.youtube.com/watch?v=tc-pRTk2r7k"));
         }catch (Exception e){
-            System.out.println("Error");
+            System.out.println("Video ist down oder so");
         }
     }
 }
