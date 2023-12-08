@@ -5,12 +5,12 @@ import de.Fraport.Feuerwehr.Enumerations.Einsatzart;
 import java.util.ArrayList;
 
 /**
- * Die Klasse repräsentiert einen Einsatz.
- * einsatzNummer ist die Einsatznummer des Einsatzes.
- * einsatzArt ist die Art des Einsatzes.
- * benoetigte Feuerwehrleute gibt die noch benötigten Feuerwehrleute an.
- * benoetigteXXX gibt die Anzahl den noch benötigten Fahrzeuge einer bestimmten art an.
- * fahrzeuge speichert die sich am Einsatz befindlichen Fahrzeuge.
+ * Die Klasse repräsentiert einen Einsatz.<p>
+ * einsatzNummer ist die Einsatznummer des Einsatzes.<p>
+ * einsatzArt ist die Art des Einsatzes.<p>
+ * {@code benoetigteFeuerwehrleute} gibt die noch benötigten Feuerwehrleute an.<p>
+ * {@code benoetigteXXX} gibt die Anzahl den noch benötigten Fahrzeuge einer bestimmten art an.<p>
+ * {@code fahrzeuge} speichert die sich am Einsatz befindlichen Fahrzeuge.
  */
 public class Einsatz {
     private int einsatznummer;
@@ -23,8 +23,8 @@ public class Einsatz {
     private ArrayList<Fahrzeug> fahrzeuge = new ArrayList<Fahrzeug>();
 
     /**
-     * Konstruktor für die Einsatz-Klasse.
-     * Die benötigten Feuerwehrleute und Einsatzfahrzeuge werden abhängig von der Einsatzart über "setEinsatz" gesetzt.
+     * Konstruktor für die Einsatz-Klasse.<p>
+     * Die benötigten Feuerwehrleute und Einsatzfahrzeuge werden abhängig von der Einsatzart über {@code setEinsatz} gesetzt.
      *
      * @param einsatznummer Die Nummer des Einsatzes.
      * @param einsatzart Die Art des Einsatzes.

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class FahrzeugPopup {
 
     /**
-     * Zeigt ein Popup zur Auswahl eines Fahrzeugs an.
+     * Zeigt ein Popup zur Auswahl eines Fahrzeugs aus einer Dropdown-Liste an.
      *
      * @param fahrzeuge Eine Liste von Fahrzeugen, aus denen ausgewählt werden kann.
      * @return Das ausgewählte Fahrzeug oder ein neues Fahrzeug mit Standardwerten als Repräsentation eines Abbruchs.

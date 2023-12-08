@@ -4,12 +4,12 @@ import javax.swing.*;
 import java.awt.event.*;
 
 /**
- * Die Klasse `Hauptfenster` repräsentiert das Hauptfenster der Leitstelle.
+ * Die Klasse `Hauptfenster` repräsentiert das Hauptfenster der Leitstelle.<p>
  * Sie enthält Buttons für verschiedene Aktionen, um die Leitstellenfunktionen zu steuern.
- *
- * Die Klasse erbt von `JDialog` und wird mit einer Instanz der Leitstelle initialisiert.
- * Das Aussehen des Hauptfensters wird durch Hauptfenster.form weiter beschrieben.
- * Hauptfenster.form wurde durch mithilfe des Swing UI Designer von IntelliJ Ultimate erzeugt.
+ * <p>
+ * Die Klasse erbt von `JDialog` und wird mit einer Instanz der Leitstelle initialisiert.<p>
+ * Das Aussehen des Hauptfensters wird durch Hauptfenster.form weiter beschrieben.<p>
+ * Hauptfenster.form, wurde durch mithilfe des Swing UI Designer von IntelliJ Ultimate erzeugt.
  */
 public class Hauptfenster extends JDialog {
     /**
@@ -126,7 +126,7 @@ public class Hauptfenster extends JDialog {
     }
 
     /**
-     * Aktualisiert die Anzeige des Status der Wache im GUI-Label.
+     * Aktualisiert die Anzeige des Status der Wache im GUI-Label.<p>
      * Hierbei wird zur formatierung des Texts HTML verwendet
      */
     private void updateStatusDerWache() {
@@ -134,7 +134,7 @@ public class Hauptfenster extends JDialog {
     }
 
     /**
-     * Behandelt den Klick auf den "Urlaubsmeldung" Button.
+     * Behandelt den Klick auf den "Urlaubsmeldung" Button.<p>
      * Ruft die entsprechende Methode in der Leitstelle auf und aktualisiert den Status der Wache.
      */
     private void onUrlaubsmeldung() {
@@ -143,7 +143,7 @@ public class Hauptfenster extends JDialog {
     }
 
     /**
-     * Behandelt den Klick auf den "Urlaubsrückkehr" Button.
+     * Behandelt den Klick auf den "Urlaubsrückkehr" Button.<p>
      * Ruft die entsprechende Methode in der Leitstelle auf und aktualisiert den Status der Wache.
      */
     private void onUrlaubsrueckkehr() {
@@ -152,7 +152,7 @@ public class Hauptfenster extends JDialog {
     }
 
     /**
-     * Behandelt den Klick auf den "Fahrzeug Wartung" Button.
+     * Behandelt den Klick auf den "Fahrzeug Wartung" Button.<p>
      * Ruft die entsprechende Methode in der Leitstelle auf und aktualisiert den Status der Wache.
      */
     private void onFahrzeugWartung() {
@@ -160,7 +160,7 @@ public class Hauptfenster extends JDialog {
         updateStatusDerWache();
     }
     /**
-     * Behandelt den Klick auf den "Fahrzeug Verfügbar" Button.
+     * Behandelt den Klick auf den "Fahrzeug Verfügbar" Button.<p>
      * Ruft die entsprechende Methode in der Leitstelle auf und aktualisiert den Status der Wache.
      */
     private void onFahrzeugVerfuegbar() {
@@ -169,7 +169,7 @@ public class Hauptfenster extends JDialog {
     }
 
     /**
-     * Behandelt den Klick auf den "Erkrankung" Button.
+     * Behandelt den Klick auf den "Erkrankung" Button.<p>
      * Ruft die entsprechende Methode in der Leitstelle auf und aktualisiert den Status der Wache.
      */
     private void onErkrankung(){
@@ -177,7 +177,7 @@ public class Hauptfenster extends JDialog {
         updateStatusDerWache();
     }
     /**
-     * Behandelt den Klick auf den "Gesundmeldung" Button.
+     * Behandelt den Klick auf den "Gesundmeldung" Button.<p>
      * Ruft die entsprechende Methode in der Leitstelle auf und aktualisiert den Status der Wache.
      */
     private void onGesund(){
@@ -186,7 +186,7 @@ public class Hauptfenster extends JDialog {
     }
 
     /**
-     * Behandelt den Klick auf den "Neuer Einsatz" Button.
+     * Behandelt den Klick auf den "Neuer Einsatz" Button.<p>
      * Ruft die entsprechende Methode in der Leitstelle auf.
      */
     private void onNeuerEinsatz(){
@@ -194,7 +194,7 @@ public class Hauptfenster extends JDialog {
     }
 
     /**
-     * Behandelt den Klick auf den "Einsatz Anfahren" Button.
+     * Behandelt den Klick auf den "Einsatz Anfahren" Button.<p>
      * Ruft die entsprechende Methode in der Leitstelle auf und zeigt eine Fehlermeldung, falls nicht genügend Einsatzmittel vorhanden sind.
      */
     private void onEinsatzAnfahren(){
@@ -206,7 +206,7 @@ public class Hauptfenster extends JDialog {
         updateStatusDerWache();
     }
     /**
-     * Behandelt den Klick auf den "Einsatz Info" Button.
+     * Behandelt den Klick auf den "Einsatz Info" Button.<p>
      * Ruft die entsprechende Methode in der Leitstelle auf und zeigt die Informationen in einem Dialogfenster an.
      */
     private void onEinsatzInfo(){
@@ -219,7 +219,7 @@ public class Hauptfenster extends JDialog {
     }
 
     /**
-     * Behandelt den Klick auf den "Einsatz Beenden" Button.
+     * Behandelt den Klick auf den "Einsatz Beenden" Button.<p>
      * Ruft die entsprechende Methode in der Leitstelle auf und aktualisiert den Status der Wache.
      */
     private void onEinsatzEnde(){
@@ -227,8 +227,8 @@ public class Hauptfenster extends JDialog {
         updateStatusDerWache();
     }
     /**
-     * Behandelt den Klick auf den "Programm Beenden" Button.
-     * Überprüft, ob das Beenden des Programms möglich ist, und zeigt ggf. eine Fehlermeldung an.
+     * Behandelt den Klick auf den "Programm Beenden" Button.<p>
+     * Überprüft, ob das Beenden des Programms möglich ist, und zeigt ggf. eine Fehlermeldung an.<p>
      * Schließt das Hauptfenster, wenn das Beenden möglich ist.
      */
     private void onExit(){

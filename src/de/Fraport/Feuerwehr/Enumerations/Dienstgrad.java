@@ -1,7 +1,7 @@
 package de.Fraport.Feuerwehr.Enumerations;
 
 /**
- * Die Enumeration "Dienstgrad" gibt den Dienstgrad eines Feuerwehrmanns oder ELWs an.
+ * Die Enumeration "Dienstgrad" gibt den Dienstgrad eines Feuerwehrmanns oder ELWs an.<p>
  * Dabei ist A_DIENST der höchste und D_DIENST der niedrigste Dienstgrad.
  */
 public enum Dienstgrad {

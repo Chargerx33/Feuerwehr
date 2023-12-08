@@ -5,7 +5,14 @@ import de.Fraport.Feuerwehr.Enumerations.Einsatzart;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Generische Klasse für die Auswahl einer Einsatzart aus einer Dropdown-Liste.
+ */
 public class EinsatzartPopup {
+    /**
+     * Zeigt einen Dialog an, um eine Einsatzart auszuwählen.
+     * @return Die ausgewählte Einsatzart oder {@code UNDEFINED}, was einen Abbruch darstellt.
+     */
     public Einsatzart getData() {
         JComboBox<Einsatzart> dropdown = new JComboBox<Einsatzart>();
         for (Einsatzart e : Einsatzart.values()) {

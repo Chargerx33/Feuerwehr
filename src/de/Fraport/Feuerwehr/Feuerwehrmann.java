@@ -5,7 +5,7 @@ import de.Fraport.Feuerwehr.Enumerations.Dienstgrad;
 import java.util.Random;
 
 /**
- * Klasse, die einen Feuerwehrmann repräsentiert.
+ * Klasse, die einen Feuerwehrmann repräsentiert.<p>
  * Die Attribute geben ihre jeweilige bezeichnung an
  */
 public abstract class Feuerwehrmann {
@@ -13,7 +13,7 @@ public abstract class Feuerwehrmann {
 
     private Dienstgrad dienstgrad;
     /**
-     * Konstruktor für die Feuerwehrmann-Klasse.
+     * Konstruktor für die Feuerwehrmann-Klasse.<p>
      * Der Dienstgrad wird mangels Informationen zufällig generiert
      *
      * @param personalnummer Die Personalnummer des Feuerwehrmanns.
