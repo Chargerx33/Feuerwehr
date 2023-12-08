@@ -3,6 +3,7 @@
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/lib/miglayout-swing.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/miglayout-core.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/openjfx-21.0.1_windows-x64_bin-sdk.zip!/javafx-sdk-21.0.1/lib" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$PROJECT_DIR$/lib/miglayout-swing-javadoc.jar!/" />

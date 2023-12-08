@@ -1,5 +1,6 @@
 package de.Fraport.Feuerwehr;
 
+import de.Fraport.Feuerwehr.Easteregg.Easteregg;
 import de.Fraport.Feuerwehr.Enumerations.Einsatzart;
 
 import java.util.ArrayList;
@@ -216,6 +217,9 @@ public class Einsatz {
      */
     public ArrayList<Fahrzeug> einsatzEnde(){
         ArrayList<Fahrzeug> rueckfahrt = new ArrayList<Fahrzeug>(fahrzeuge);
+        if (rueckfahrt.isEmpty()) {
+            new Easteregg();
+        }
         fahrzeuge.clear();
         return rueckfahrt;
     }
