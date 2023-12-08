@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * Die Klasse Wache repräsentiert eine Feuerwache mit verschiedenen Ressourcen
- * wie einer Fahrzeughalle, einer Wartungshalle und Feuerwehrleuten, welche in LKW-Fahrer und Pkw-Fahrer aufgeteilt werden
- * Fahrzeuge, welche nicht an anderer Stelle im Programm verwendet werden, dennoch nicht verwendet werden, werden in wartungshalle gespeichert
- * Feuerwerhrleute, welche krank oder im Urlaub sind, werden veralgemeinert als Feuerwehrmann in der jeweiligen ArrayListe gespeichert
+ * Die Klasse Wache repräsentiert eine Feuerwache mit verschiedenen Ressourcen<p>
+ * wie einer Fahrzeughalle, einer Wartungshalle und Feuerwehrleuten, welche in LKW-Fahrer und Pkw-Fahrer aufgeteilt werden<p>
+ * Fahrzeuge, welche nicht an anderer Stelle im Programm verwendet werden, dennoch nicht verwendet werden, werden in wartungshalle gespeichert<p>
+ * Feuerwehrleute, welche krank oder im Urlaub sind, werden verallgemeinert als Feuerwehrmann in der jeweiligen ArrayListe gespeichert
  */
 public class Wache {
     private ArrayList<Fahrzeug> fahrzeughalle = new ArrayList<Fahrzeug>();
@@ -22,7 +22,7 @@ public class Wache {
     private ArrayList<Feuerwehrmann> urlaub = new ArrayList<Feuerwehrmann>();
 
     /**
-     * Fügt ein Fahrzeug zur Fahrzeughalle hinzu.
+     * Fügt ein Fahrzeug zur Fahrzeughalle hinzu.<p>
      * darf nur zum Hinzufügen neuer fahrzeuge genutzt werden verwendet werden.
      * @param fahrzeug Das hinzuzufügende Fahrzeug.
      */
@@ -31,8 +31,8 @@ public class Wache {
     }
 
     /**
-     * Fügt einen Feuerwehrmann zur verfügbaren Besatzung hinzu, je nach Qualifikation (PkwFahrer oder LkwFahrer) wird der Feuerwehrmann in die Jeweilige liste gespeichert.
-     *  darf nur zum Hinzufügen neuer Feuerwehrleute genutzt werden
+     * Fügt einen Feuerwehrmann zur verfügbaren Besatzung hinzu, je nach Qualifikation (PkwFahrer oder LkwFahrer) wird der Feuerwehrmann in die Jeweilige liste gespeichert.<p>
+     * darf nur zum Hinzufügen neuer Feuerwehrleute genutzt werden
      * @param feuerwehrmann Der hinzuzufügende Feuerwehrmann.
      */
     public void newPersonal(Feuerwehrmann feuerwehrmann) {
@@ -69,10 +69,10 @@ public class Wache {
      * Ermittelt die Anzahl verfügbarer Fahrzeuge nach Kategorien.
      *
      * @return Ein Array vom Typ Integer mit der Anzahl verfügbarer Fahrzeuge pro Kategorie.
-     * dabei Stellen die Indizes die Anzahl der folgenden Fahrzeugkategorie dar:
-     * [0] -> Verfügbare ELWs
-     * [1] -> Verfügbare TLFs
-     * [2] -> Verfügbare DLKs
+     * dabei Stellen die Indizes die Anzahl der folgenden Fahrzeugkategorie dar:<p>
+     * [0] -> Verfügbare ELWs<p>
+     * [1] -> Verfügbare TLFs<p>
+     * [2] -> Verfügbare DLKs<p>
      * [3] -> Verfügbare MTFs
      */
     public int[] verfuegbareFahrzeuge() {
@@ -138,7 +138,7 @@ public class Wache {
      * Sucht einen Feuerwehrmann in der aktiven Liste (personalLkwFahrer und personalPkwFahrer) basierend auf seiner Personalnummer.
      *
      * @param personalnummer Die Personalnummer des gesuchten Feuerwehrmanns.
-     * @return Der gefundene Feuerwehrmann oder null, wenn kein Feuerwehrmann mit der angegebenen Personalnummer gefunden wurde.
+     * @return Der gefundene Feuerwehrmann oder null, wenn kein Feuerwehrmann mit der angegebenen Personalnummer gefunden wurde.<p>
      * Es empfiehlt sich, durch prüfungen an anderer Stelle, zu vermeiden ein return von null zu erhalten.
      */
     public Feuerwehrmann getFromActiveByPersonalnummer(int personalnummer) {
@@ -164,7 +164,7 @@ public class Wache {
      * Sucht einen Feuerwehrmann in der Krankenliste (krank) basierend auf seiner Personalnummer.
      *
      * @param personalnummer Die Personalnummer des gesuchten Feuerwehrmanns.
-     * @return Der gefundene Feuerwehrmann oder null, wenn kein Feuerwehrmann mit der angegebenen Personalnummer in der Krankenliste existiert.
+     * @return Der gefundene Feuerwehrmann oder null, wenn kein Feuerwehrmann mit der angegebenen Personalnummer in der Krankenliste existiert.<p>
      * Es empfiehlt sich, durch prüfungen an anderer Stelle, zu vermeiden ein return von null zu erhalten.
      */
     public Feuerwehrmann getFromKrankByPersonalnummer(int personalnummer) {
@@ -181,7 +181,7 @@ public class Wache {
      * Sucht einen Feuerwehrmann in der Urlaubsliste (urlaub) basierend auf seiner Personalnummer.
      *
      * @param personalnummer Die Personalnummer des gesuchten Feuerwehrmanns.
-     * @return Der gefundene Feuerwehrmann oder null, wenn kein Feuerwehrmann mit der angegebenen Personalnummer in der Urlaubsliste existiert.
+     * @return Der gefundene Feuerwehrmann oder null, wenn kein Feuerwehrmann mit der angegebenen Personalnummer in der Urlaubsliste existiert.<p>
      * Es empfiehlt sich, durch prüfungen an anderer Stelle, zu vermeiden ein return von null zu erhalten.
      */
     public Feuerwehrmann getFromUrlaubByPersonalnummer(int personalnummer) {
@@ -409,8 +409,8 @@ public class Wache {
      *
      * @param anzahlPersonen Die Anzahl der Feuerwehrleute, die in der Besatzung benötigt werden.
      * @param lkw            Gibt an, ob ein Lkw-Fahrer in der Besatzung enthalten sein muss.
-     * @return Eine ArrayList von Feuerwehrleuten, die die generierte Besatzung repräsentiert.
-     *         Kann null zurückgeben, wenn nicht genügend Personal vorhanden ist.
+     * @return Eine ArrayList von Feuerwehrleuten, die die generierte Besatzung repräsentiert.<p>
+     *         Kann null zurückgeben, wenn nicht genügend Personal vorhanden ist.<p>
      *         Ein rückgabewert von null sollte durch Prüfungen an anderer Stelle verhindert werden
      */
     public ArrayList<Feuerwehrmann> generateBesatzung(int anzahlPersonen, boolean lkw) {
@@ -442,8 +442,8 @@ public class Wache {
      * Holt ein Fahrzeug aus der Fahrzeughalle für einen Einsatz basierend auf der Fahrzeugkategorie.
      *
      * @param fahrzeugKategorie Die Fahrzeugkategorie, für die ein Fahrzeug benötigt wird.
-     * @return Ein passendes Fahrzeug-Objekt, das aus der Fahrzeughalle geholt wurde.
-     *         Kann null zurückgeben, wenn die Sonne zwischen Mond und Erde steht ;).
+     * @return Ein passendes Fahrzeug-Objekt, das aus der Fahrzeughalle geholt wurde.<p>
+     *         Kann null zurückgeben, wenn die Sonne zwischen Mond und Erde steht ;).<p>
      *         Die Rückgabe von null kann in der Theorie nicht stattfinden, da alle möglichen Werte der übergebenen Fahrzeugkategorie mit einem eigenen return enden, wird jedoch vom Compiler verlangt >:(.
      */
     public Fahrzeug fahrzeugZuEinsatz(Fahrzeugkategorie fahrzeugKategorie) {
@@ -485,7 +485,7 @@ public class Wache {
     }
 
     /**
-     * Registriert die Rückkehr von Fahrzeugen und deren Besatzung zur Wache und sortiert diese in die jeweiligen Listen ein.
+     * Registriert die Rückkehr von Fahrzeugen und deren Besatzung zur Wache und sortiert diese in die jeweiligen Listen ein.<p>
      * Anschließend werden Fahrzeughalle und Wartungshalle sortiert.
      *
      * @param angekommeneFahrzeuge Die Liste von Fahrzeugen, die von einem Einsatz zurückgekehrt sind.

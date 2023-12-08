@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * Klasse, die eine Feuerwehrleitstelle repräsentiert.
+ * Klasse, die eine Feuerwehrleitstelle repräsentiert.<p>
  * In den Attributen werden die Wache und die Einsätze gespeichert
  */
 public class Leitstelle {
@@ -109,8 +109,8 @@ public class Leitstelle {
         return new Einsatz(-1, Einsatzart.UNDEFINED);
     }
     /**
-     * Gibt Informationen zu einem ausgewählten Einsatz zurück.
-     * "einsatz" stellt hierbei den zuvor ausgewählten Einsatz dar.
+     * Gibt Informationen zu einem ausgewählten Einsatz zurück.<p>
+     * {@code einsatz} stellt hierbei den zuvor ausgewählten Einsatz dar.
      * @return Informationen welche in "einsatz.getSonderattribute" erzeugt wurden.
      *
      */
@@ -120,8 +120,8 @@ public class Leitstelle {
     }
 
     /**
-     * Beendet einen zuvor ausgewählten Einsatz.
-     * dabei werden die am Einsatz anwesenden Fahrzeuge an "wache.rueckkehr" übergeben und folgend der Einsatz gelöscht
+     * Beendet einen zuvor ausgewählten Einsatz.<p>
+     * dabei werden die am Einsatz anwesenden Fahrzeuge an {@code wache.rueckkehr} übergeben und folgend der Einsatz gelöscht
      */
     public void beendeEinsatz() {
         Einsatz e = selectEinsatz();
@@ -130,8 +130,8 @@ public class Leitstelle {
     }
 
     /**
-     * Verlegt ein zuvor ausgewähltes Fahrzeug in die Wartungshalle.
-     * Ein Fahrzeug mit der Fahrzeugnummer 0 oder -1 stellt hierbei einen Abbruch dar.
+     * Verlegt ein zuvor ausgewähltes Fahrzeug in die Wartungshalle.<p>
+     * Ein Fahrzeug mit der Fahrzeugnummer {@code 0} oder {@code -1} stellt hierbei einen Abbruch dar.
      */
     public void warteFahrzeug() {
         FahrzeugPopup fahrzeugPopup = new FahrzeugPopup();
@@ -145,7 +145,7 @@ public class Leitstelle {
 
     /**
      * Reaktiviert ein Fahrzeug aus der Wartungshalle.
-     * Ein Fahrzeug mit der Fahrzeugnummer 0 oder -1 stellt hierbei einen Abbruch dar.
+     * Ein Fahrzeug mit der Fahrzeugnummer {@code 0} oder {@code -1} stellt hierbei einen Abbruch dar.
      */
     public void reaktiviereFahrzeug() {
         FahrzeugPopup fahrzeugPopup = new FahrzeugPopup();
@@ -160,8 +160,8 @@ public class Leitstelle {
     /**
      * Meldet einen zuvor ausgewählten Feuerwehrmann als erkrankt.
      * @param personalnummer die Personalnummer des Erkrankten.
-     * hierbei stellt die Personalnummer 0 einen Aufruf auf das Popup zur auswahl eines Feuerwehrmanns
-     * und die Personalnummer -1 einen Abbruch der Aktion dar
+     * hierbei stellt die Personalnummer {@code 0} einen Aufruf auf das Popup zur auswahl eines Feuerwehrmanns
+     * und die Personalnummer {@code -1} einen Abbruch der Aktion dar
      */
     public void erkrankung(int personalnummer) {
         if (personalnummer == 0) {
@@ -177,8 +177,8 @@ public class Leitstelle {
     /**
      * Meldet einen zuvor ausgewählten Feuerwehrmann als gesund.
      * @param personalnummer die Personalnummer des Erkrankten
-     *  hierbei stellt die Personalnummer 0 einen Aufruf auf das Popup zur auswahl eines Feuerwehrmanns
-     * und die Personalnummer -1 einen Abbruch der Aktion dar
+     *  hierbei stellt die Personalnummer {@code 0} einen Aufruf auf das Popup zur auswahl eines Feuerwehrmanns
+     * und die Personalnummer {@code -1} einen Abbruch der Aktion dar
      */
     public void gesund(int personalnummer) {
         if (personalnummer == 0) {
@@ -195,8 +195,8 @@ public class Leitstelle {
     /**
      * Meldet einen Feuerwehrmann als im Urlaub.
      * @param personalnummer die Personalnummer des Beurlaubten
-     * hierbei stellt die Personalnummer 0 einen Aufruf auf das Popup zur auswahl eines Feuerwehrmanns dar
-     * und die Personalnummer -1 einen Abbruch der Aktion dar
+     * hierbei stellt die Personalnummer {@code 0} einen Aufruf auf das Popup zur auswahl eines Feuerwehrmanns dar
+     * und die Personalnummer {@code -1} einen Abbruch der Aktion dar
      */
     public void urlaub(int personalnummer) {
         if (personalnummer == 0) {
@@ -232,7 +232,7 @@ public class Leitstelle {
     /**
      * Teambildung für einen Einsatz.
      *
-     * @return True, wenn das Team für den Einsatz gebildet wurde, sonst False.
+     * @return {@code true}, wenn das Team für den Einsatz gebildet wurde, sonst {@code false}.
      */
     public boolean teamZuEinsatz() {
         Einsatz e = selectEinsatz();
@@ -325,7 +325,7 @@ public class Leitstelle {
     /**
      * Überprüft, ob das Beenden des Programms möglich ist, indem geprüft wird, ob keine Einsätze mehr offen sind.
      *
-     * @return true, wenn das Programm beendet werden kann (sprich keine offenen Einsätze), andernfalls false.
+     * @return {@code true}, wenn das Programm beendet werden kann (sprich keine offenen Einsätze), andernfalls {@code false}.
      */
     public boolean programBeendenMoeglich(){
         return einsaetze.isEmpty();

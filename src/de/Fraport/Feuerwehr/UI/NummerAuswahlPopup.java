@@ -14,7 +14,7 @@ public class NummerAuswahlPopup {
      * @param integers Eine Liste der auswählbaren Nummern.
      * @param titel   Der Titel des Dialogs.
      * @param text    Der Text, der die Auswahl beschreibt.
-     * @return Die ausgewählte Nummer oder -1 bzw. 0, was einen Abbruch darstellt
+     * @return Die ausgewählte Nummer oder {@code -1} bzw. {@code 0}, was einen Abbruch darstellt.
      */
     public int getData(ArrayList<Integer> integers, String titel, String text) {
         JComboBox<Integer> dropdown = new JComboBox<Integer>();

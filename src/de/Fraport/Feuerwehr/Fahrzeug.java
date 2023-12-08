@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Meistens Klasse, die ein allgemeines Fahrzeug repräsentiert.
- * Die Klasse stellt die folgenden Attribute bereit:
- * fahrzeugnummer ist die Nummer des Fahrzeugs
- * fahrzeugKategorie gibt an welcher Kategorie ein Fahrzeug zuzuordnen ist
- * art gibt an, welche Art von Qualifikation man für das Fahrzeug benötigt (z.B. PKW-Führerschein)
- * sitze gibt an, wie viele Sitze das Fahrzeug hat
+ * Meistens Klasse, die ein allgemeines Fahrzeug repräsentiert.<p>
+ * Die Klasse stellt die folgenden Attribute bereit:<p>
+ * {@code fahrzeugnummer} ist die Nummer des Fahrzeugs<p>
+ * {@code fahrzeugKategorie} gibt an welcher Kategorie ein Fahrzeug zuzuordnen ist<p>
+ * {@code art} gibt an, welche Art von Qualifikation man für das Fahrzeug benötigt (z.B. PKW-Führerschein)<p>
+ * {@code sitze} gibt an, wie viele Sitze das Fahrzeug hat
  */
 public class Fahrzeug {
 
@@ -24,7 +24,8 @@ public class Fahrzeug {
     private ArrayList<Feuerwehrmann> besatzung = new ArrayList<Feuerwehrmann>(sitze);
 
     /**
-     * Standardkonstruktor für ein Fahrzeug. Setzt die fahrzeugnummer uf -1, Sitzanzahl auf 0 und den Typ auf UNDEFINED.
+     * Standardkonstruktor für ein Fahrzeug. Setzt die fahrzeugnummer uf -1, Sitzanzahl auf 0 und den Typ auf UNDEFINED.<p>
+     * Darf nur als Abbruch oder Platzhalter genutzt werden
      */
     public Fahrzeug() {
         this.fahrzeugnummer = -1;
@@ -77,6 +78,7 @@ public class Fahrzeug {
 
     /**
      * Gibt die FahrzeugKategorie zurück
+     *
      * @return Die FahrzeugKategorie
      */
     public Fahrzeugkategorie getFahrzeugKategorie(){
@@ -106,7 +108,7 @@ public class Fahrzeug {
 
     /**
      * Enumeration, die die möglichen Fahrzeugarten repräsentiert.
-     * UNDEFINED gibt einen Fehler oder Abbruch an.
+     * {@code UNDEFINED} gibt einen Fehler oder Abbruch an.
      */
     enum FahrzeugArt {
         PKW, LKW, UNDEFINED
@@ -114,9 +116,8 @@ public class Fahrzeug {
 
 }
 /**
- * Klasse, die einen Einsatzleitwagen (ELW) repräsentiert und von der Klasse Fahrzeug erbt.
+ * Klasse, die einen Einsatzleitwagen (ELW) repräsentiert und von der Klasse Fahrzeug erbt.<p>
  * die Klasse hat zusätzlich das Attribut dienstgrad, welches im Einsatz den höchsten Dienstgrad der auf dem Fahrzeug befindlichen Feuerwehrleute angibt
- *
  */
 class ELW/*Einsatzleitwagen*/ extends Fahrzeug {
 
@@ -159,7 +160,7 @@ class TLF/*Tankloeschfahrzeug*/ extends Fahrzeug{
     private int tank;
 
     /**
-     * Konstruktor für die TLF-Klasse.
+     * Konstruktor für die TLF-Klasse.<p>
      * Der Tankinhalt wird aus einer Auswahl von zwei Tankgrößen zufällig gewählt, die Tankgrößen kommen von realen Fahrzeugen der Feuerwehr Frankfurt und stellen Liter dar
      * @param fahrzeugnummer Die Fahrzeugnummer des Tanklöschfahrzeugs.
      */
@@ -182,8 +183,8 @@ class TLF/*Tankloeschfahrzeug*/ extends Fahrzeug{
 }
 
 /**
- * Klasse, die eine Drehleiter mit Korb (DLK) repräsentiert und von der Klasse Fahrzeug erbt.
- * die Klasse hat zusätzlich das Attribut hoehe, welches die maximale Einsatzhöhe der DLK angibt
+ * Klasse, die eine Drehleiter mit Korb (DLK) repräsentiert und von der Klasse Fahrzeug erbt.<p>
+ * die Klasse hat zusätzlich das Attribut {@code hoehe}, welches die maximale Einsatzhöhe der DLK angibt
  */
 class DLK/*Drehleiter (mit Korb)*/ extends Fahrzeug {
     private int hoehe;
@@ -210,8 +211,8 @@ class DLK/*Drehleiter (mit Korb)*/ extends Fahrzeug {
 }
 
 /**
- * Klasse, die ein Mannschaftstransportfahrzeug (MTF) repräsentiert und von der Klasse Fahrzeug erbt.
- * die Klasse hat zusätzlich das Attribut baujahr, welches das Baujahr des MTFs angibt
+ * Klasse, die ein Mannschaftstransportfahrzeug (MTF) repräsentiert und von der Klasse Fahrzeug erbt.<p>
+ * die Klasse hat zusätzlich das Attribut {@code baujahr}, welches das Baujahr des MTFs angibt
  */
 class MTF/*Mannschaftstransportfahrzeug*/ extends Fahrzeug {
     /**
